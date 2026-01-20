@@ -43,7 +43,7 @@ const orderSchema = new mongoose.Schema(
       required: true,
     },
 
-    paymentMethod: {
+    OptionPayment: {
       type: String,
       enum: ["cash", "qr"],
       default: "cash",
