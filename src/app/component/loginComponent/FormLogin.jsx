@@ -3,6 +3,7 @@
 import {Check} from "@gravity-ui/icons";
 import {Button, Description, FieldError, Form, Input, Label, TextField} from "@heroui/react";
 import { useRouter } from "next/navigation";
+const axios = require('axios').default;
 export function FormLogin() {
   let Route = useRouter()
    function Register(params) {
@@ -17,7 +18,17 @@ export function FormLogin() {
     formData.forEach((value, key) => {
       data[key] = value.toString();
     });
-console.log(JSON.stringify(data))
+     function LoginUser(params) {
+      axios.post("http://localhost:3000/api/Login",data)
+      .then(function(res){
+        console.log(res.data.message)
+      })
+      .catch(function(error){
+        console.log(error)
+      })
+     }
+LoginUser()
+
   };
 
   return (
