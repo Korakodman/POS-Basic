@@ -9,7 +9,7 @@ export async function POST(req) {
         let body = await req.json()
         return NextResponse.json({message:"LoginSuccess"},{status:200})
     } catch (error) {
-        return NextResponse.json("a Error is : ",error)
+        return NextResponse.json("a Error is : ",error,{status:400})
     }
 }
 export async function GET(req) {

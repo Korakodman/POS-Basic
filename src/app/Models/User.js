@@ -2,15 +2,10 @@ import mongoose from "mongoose";
 
 const userSchema = new mongoose.Schema(
   {
-    name: {
+    username: {
       type: String,
       required: true,
-    },
-
-    email: {
-      type: String,
-      required: true,
-      unique: true,
+      unique:true
     },
 
     password: {
@@ -27,5 +22,5 @@ const userSchema = new mongoose.Schema(
   { timestamps: true }
 );
 
-export default mongoose.models.User ||
-  mongoose.model("User", userSchema);
+export default mongoose.models.Users ||
+  mongoose.model("Users", userSchema);

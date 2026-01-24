@@ -3,8 +3,9 @@
 import {Check} from "@gravity-ui/icons";
 import {Button, Description, FieldError, Form, Input, Label, TextField} from "@heroui/react";
 import { useRouter } from "next/navigation";
+const axios = require('axios').default;
 export function FormRegis() {
-
+   let msError = ""
    let Route = useRouter()
    function login(params) {
     Route.push("/login")
@@ -22,26 +23,32 @@ export function FormRegis() {
         console.log("รหัสไม่ตรงกัน")
         return 
     }
-    console.log(JSON.stringify(data))
+   function RegisterUser(params) {
+     axios.post("http://localhost:3000/api/Register",data)
+    .then(function (res) {
+      console.log(res.data.message)
+    })
+    .catch(function(error){
+
+       msError = (error.response.data.message)
+    })
+   }
+   RegisterUser()
   };
 
   return (
     <Form className="flex w-96 flex-col gap-4 bg-gray-300 p-4 border-2 border-gray-500" onSubmit={onSubmit}>
       <TextField
         isRequired
-        name="email"
-        type="email"
-        validate={(value) => {
-          if (!/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i.test(value)) {
-            return "Please enter a valid email address";
-          }
-
-          return null;
+        name="username"
+        type="text"
+        validate={()=>{
+         
         }}
       >
         <Label>username</Label>
-        <Input placeholder="john@example.com" />
-        <FieldError />
+        <Input placeholder="Your Username" />
+        <FieldError msError={msError} />
       </TextField>
 
       <TextField
