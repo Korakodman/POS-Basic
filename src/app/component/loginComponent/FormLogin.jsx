@@ -24,7 +24,7 @@ export function FormLogin() {
         console.log(res.data.message)
       })
       .catch(function(error){
-        console.log(error)
+        console.log(error.response.data.message)
       })
      }
 LoginUser()
@@ -35,15 +35,9 @@ LoginUser()
     <Form className="flex w-96 flex-col gap-4 bg-gray-300 p-4 border-2 border-gray-500" onSubmit={onSubmit}>
       <TextField
         isRequired
-        name="email"
-        type="email"
-        validate={(value) => {
-          if (!/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i.test(value)) {
-            return "Please enter a valid email address";
-          }
-
-          return null;
-        }}
+        name="username"
+        type="text"
+        
       >
         <Label>Username</Label>
         <Input placeholder="Your username" />

@@ -3,9 +3,11 @@
 import {Check} from "@gravity-ui/icons";
 import {Button, Description, FieldError, Form, Input, Label, TextField} from "@heroui/react";
 import { useRouter } from "next/navigation";
+import { useState } from "react";
 const axios = require('axios').default;
 export function FormRegis() {
-   let msError = ""
+   const [msError,setmsError] = useState({})
+
    let Route = useRouter()
    function login(params) {
     Route.push("/login")
@@ -30,7 +32,7 @@ export function FormRegis() {
     })
     .catch(function(error){
 
-       msError = (error.response.data.message)
+       setmsError(error.response.data.message)
     })
    }
    RegisterUser()
@@ -42,13 +44,15 @@ export function FormRegis() {
         isRequired
         name="username"
         type="text"
-        validate={()=>{
-         
+        validate={(value)=>{
+         if(!value){
+          return "username must have"
+         }
         }}
       >
         <Label>username</Label>
         <Input placeholder="Your Username" />
-        <FieldError msError={msError} />
+        <FieldError  />
       </TextField>
 
       <TextField

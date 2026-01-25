@@ -19,7 +19,7 @@ try {
     console.log(newUser)
      await newUser.save()
     return NextResponse.json(
-        newUser,
+
         {message:"Register Success"},
         {status:200})
 } catch (error) {
