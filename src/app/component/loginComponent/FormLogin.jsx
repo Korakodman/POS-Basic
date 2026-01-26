@@ -3,8 +3,12 @@
 import {Check} from "@gravity-ui/icons";
 import {Button, Description, FieldError, Form, Input, Label, TextField} from "@heroui/react";
 import { useRouter } from "next/navigation";
+import { useState } from "react";
 const axios = require('axios').default;
 export function FormLogin() {
+  let [msError,setmsError] = useState("")
+  let errorms = ""
+
   let Route = useRouter()
    function Register(params) {
     Route.push("/register")
@@ -13,7 +17,6 @@ export function FormLogin() {
     e.preventDefault();
     const formData = new FormData(e.currentTarget);
     const data = {};
-
     // Convert FormData to plain object
     formData.forEach((value, key) => {
       data[key] = value.toString();
@@ -22,9 +25,12 @@ export function FormLogin() {
       axios.post("http://localhost:3000/api/Login",data)
       .then(function(res){
         console.log(res.data.message)
+        setmsError("")
       })
       .catch(function(error){
-        console.log(error.response.data.message)
+        if(error){
+          setmsError(error.response.data.message)
+        }
       })
      }
 LoginUser()
@@ -32,13 +38,16 @@ LoginUser()
   };
 
   return (
-    <Form className="flex w-96 flex-col gap-4 bg-gray-300 p-4 border-2 border-gray-500" onSubmit={onSubmit}>
+    <Form className="flex w-96 flex-col gap-4 bg-gray-300 p-4 border-2 border-gray-500" onSubmit={onSubmit}    validationBehavior="aria">
       <TextField
         isRequired
         name="username"
         type="text"
-        
-      >
+        validate={()=>{
+           
+        return null
+        }}
+       >
         <Label>Username</Label>
         <Input placeholder="Your username" />
         <FieldError />
@@ -49,24 +58,18 @@ LoginUser()
         minLength={8}
         name="password"
         type="password"
-        validate={(value) => {
-          if (value.length < 8) {
-            return "Password must be at least 8 characters";
-          }
-          if (!/[A-Z]/.test(value)) {
-            return "Password must contain at least one uppercase letter";
-          }
-          if (!/[0-9]/.test(value)) {
-            return "Password must contain at least one number";
-          }
-
+        validate={() => {
+          if(msError){
+          return msError
+        }
           return null;
         }}
       >
         <Label>Password</Label>
         <Input placeholder="Enter your password" />
         <Description>Must be at least 8 characters with 1 uppercase and 1 number</Description>
-        <FieldError />
+        <FieldError  />
+      
       </TextField>
 
       <div className="flex gap-2">

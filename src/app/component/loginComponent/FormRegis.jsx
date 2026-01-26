@@ -44,6 +44,7 @@ export function FormRegis() {
         isRequired
         name="username"
         type="text"
+       
         validate={(value)=>{
          if(!value){
           return "username must have"
