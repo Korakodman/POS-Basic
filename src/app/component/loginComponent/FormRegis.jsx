@@ -6,7 +6,7 @@ import { useRouter } from "next/navigation";
 import { useState } from "react";
 const axios = require('axios').default;
 export function FormRegis() {
-   const [msError,setmsError] = useState({})
+   const [msError,setmsError] = useState()
 
    let Route = useRouter()
    function login(params) {
@@ -21,34 +21,34 @@ export function FormRegis() {
     formData.forEach((value, key) => {
       data[key] = value.toString();
     });
-    if(data.repeatPassword != data.password){
-        console.log("รหัสไม่ตรงกัน")
-        return 
-    }
+    // if(data.repeatPassword != data.password){
+    //     console.log("รหัสไม่ตรงกัน")
+    //     return 
+    // }
    function RegisterUser(params) {
      axios.post("http://localhost:3000/api/Register",data)
     .then(function (res) {
       console.log(res.data.message)
+      
     })
     .catch(function(error){
-
        setmsError(error.response.data.message)
+   
     })
    }
    RegisterUser()
   };
 
   return (
-    <Form className="flex w-96 flex-col gap-4 bg-gray-300 p-4 border-2 border-gray-500" onSubmit={onSubmit}>
+    <Form className="flex w-96 flex-col gap-4 bg-gray-300 p-4 border-2 border-gray-500" onSubmit={onSubmit} validationBehavior="aria">
       <TextField
-        isRequired
-        name="username"
+        isRequired  
+        name="username" 
         type="text"
-       
+        
         validate={(value)=>{
-         if(!value){
-          return "username must have"
-         }
+         
+        return null
         }}
       >
         <Label>username</Label>
@@ -61,16 +61,9 @@ export function FormRegis() {
         minLength={8}
         name="password"
         type="text"
+
         validate={(value) => {
-          if (value.length < 8) {
-            return "Password must be at least 8 characters";
-          }
-          if (!/[A-Z]/.test(value)) {
-            return "Password must contain at least one uppercase letter";
-          }
-          if (!/[0-9]/.test(value)) {
-            return "Password must contain at least one number";
-          }
+  
 
           return null;
         }}
@@ -79,6 +72,7 @@ export function FormRegis() {
         <Input placeholder="Enter your password" />
         <Description>Must be at least 8 characters with 1 uppercase and 1 number</Description>
         <FieldError />
+
       </TextField>
 
        <TextField
@@ -86,17 +80,9 @@ export function FormRegis() {
         minLength={8}
         name="repeatPassword"
         type="text"
+      
         validate={(value) => {
-          if (value.length < 8) {
-            return "Password must be at least 8 characters";
-          }
-          if (!/[A-Z]/.test(value)) {
-            return "Password must contain at least one uppercase letter";
-          }
-          if (!/[0-9]/.test(value)) {
-            return "Password must contain at least one number";
-          }
-        
+       
           return null;
         }}
       >

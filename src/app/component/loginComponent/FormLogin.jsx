@@ -7,7 +7,6 @@ import { useState } from "react";
 const axios = require('axios').default;
 export function FormLogin() {
   let [msError,setmsError] = useState("")
-  let errorms = ""
 
   let Route = useRouter()
    function Register(params) {
@@ -25,6 +24,7 @@ export function FormLogin() {
       axios.post("http://localhost:3000/api/Login",data)
       .then(function(res){
         console.log(res.data.message)
+        Route.push("/")
         setmsError("")
       })
       .catch(function(error){
@@ -44,7 +44,9 @@ LoginUser()
         name="username"
         type="text"
         validate={()=>{
-           
+           if(msError){
+          return msError
+        }
         return null
         }}
        >
@@ -56,12 +58,11 @@ LoginUser()
       <TextField
         isRequired
         minLength={8}
+        isInvalid={msError}
         name="password"
         type="password"
         validate={() => {
-          if(msError){
-          return msError
-        }
+         
           return null;
         }}
       >

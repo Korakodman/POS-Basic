@@ -9,9 +9,7 @@ export async function POST(req) {
         let body = await req.json()
         let {username , password} = body
         let user = await User.findOne({username})
-        if(!body.username){
-            return NextResponse.json({message:"โปรดใส่ชื่อผู้ใช้งาน"},{status:401})
-        }
+     
         if(!user || user.password != password ){
             return NextResponse.json({message:"รหัสหรือผู้ใช้ไม่ถูกต้อง"},{status:401})
         } 
