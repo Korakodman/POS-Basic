@@ -13,5 +13,5 @@ body {
 }
 
 li{
-  @apply transform duration-300 mt-5 border-2 border-black px-4 py-2 text-center shadow-xl shadow-white hover:bg-gray-500 rounded-sm hover:cursor-pointer font-bold
+  @apply transform duration-300 mt-5 border-2 border-black px-8 py-4 text-center shadow-xl shadow-white hover:text-white text-xl hover:bg-gray-500 rounded-sm hover:cursor-pointer font-bold
 }
