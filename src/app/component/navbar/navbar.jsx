@@ -19,7 +19,7 @@ function NavbarUI() {
    route.push("/Settings")
     }
   return (
-         <nav className=' bg-gray-300 p-4 grid w-[250px] justify-center text-center'>
+         <nav className=' bg-gray-300 p-4 grid w-[250px] justify-center text-center border-r-4 border-white'>
           
             <header className='mt-20 hover:cursor-pointer' onClick={Home} >  <h1 className='text-2xl'>POS</h1></header>
  
