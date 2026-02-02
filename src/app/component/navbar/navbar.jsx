@@ -6,9 +6,7 @@ function NavbarUI() {
     function Home(num) {
    route.push("/")
     }
-      function Tables(num) {
-   route.push("/Tables")
-    }
+
       function Order(num) {
    route.push("/Order")
     }
@@ -18,15 +16,17 @@ function NavbarUI() {
       function Settings(num) {
    route.push("/Settings")
     }
+    function POS(num) {
+   route.push("/POS")
+    }
   return (
          <nav className=' bg-gray-300 p-4 grid w-[250px] justify-center text-center border-r-4 border-white'>
           
-            <header className='mt-20 hover:cursor-pointer' onClick={Home} >  <h1 className='text-2xl'>POS</h1></header>
+            <header className='mt-20 hover:cursor-pointer' onClick={POS} >  <h1 className='text-2xl'>POS</h1></header>
  
              <section>
 <ul className='mt-20'>
     <li onClick={Home} >Home</li>
-    <li onClick={Tables}>Tables</li>
     <li onClick={Order}>Order</li>
     <li onClick={Products}>Products</li>
     <li onClick={Settings}>Settings</li>
