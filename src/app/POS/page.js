@@ -1,7 +1,40 @@
 import React from "react";
 import { ButtonUI } from "../component/Button";
-
+import { MdOutlineDelete } from "react-icons/md";
 export default function page() {
+
+  const Mockitem = [{
+     name: "pencil",
+    amount: 10,
+    quality: 1,
+
+  },{
+     name: "เลย์",
+    amount: 22,
+    quality: 2,
+  },]
+  
+
+  function calculateTotal(Mockitem) {
+    let result = 0
+    for (let i = 0; i < Mockitem.length; i++) {
+    const element = Mockitem[i];
+     result += (element.amount * element.quality)
+  }
+  return result
+  }
+  function calculateItem(Mockitem) {
+    let result = 0
+    for (let i = 0; i < Mockitem.length; i++) {
+      const element = Mockitem[i];
+      result += element.quality
+    }
+    return result
+  }
+
+  
+let Item =(calculateItem(Mockitem))
+let total = (calculateTotal(Mockitem))
   return (
     <main className=" min-h-screen w-screen  bg-gray-200 font-sans">
       {/* <------- Header -------> */}
@@ -9,14 +42,17 @@ export default function page() {
         <div>
           <img src="/Barcode.png" className=" w-[200px] h-[100px]"></img>
         </div>
-        <div className="p-4 -ml-28">
+        <div className="p-4 ">
           <input
             className="p-4 w-[1250px] border-2 border-gray-400 rounded-3xl"
             type="text"
             placeholder="Scan The Barcode"
           ></input>
         </div>
-        <div>function</div>
+        <div className="">
+          <button className="hover:opacity-50 flex  items-center ">ลบรายการ<MdOutlineDelete className="text-4xl" />
+          </button>
+          </div>
       </header>
       {/* <------- Header -------> */}
       {/* <------- Section ------> */}
@@ -31,38 +67,28 @@ export default function page() {
                 <h1>จำนวน</h1>
               </div>
             </header>
+            {/* Item Cart */}
             <section className=" bg-gray-100 p-2 h-[400]">
-              <div className="p-2 flex justify-between">
-                <h1>pencil</h1>
+              {Mockitem.map((item,index)=>{
+               return( <div key={index} className="p-2 flex justify-between">
+                <h1>{index+1}. {item.name}</h1>
                 <div className="flex w-60 p-2 justify-between">
-                  <h1>20</h1>
-                  <h1>2</h1>
+                  <h1>{item.amount}</h1>
+                  <h1>{item.quality}</h1>
                 </div>
-              </div>
-               <div className="p-2 flex justify-between">
-                <h1>เลย์</h1>
-                <div className="flex w-60 p-2 justify-between">
-                  <h1>22</h1>
-                  <h1>2</h1>
-                </div>
-              </div>
-               <div className="p-2 flex justify-between">
-                <h1>text</h1>
-                <div className="flex w-60 p-2 justify-between">
-                  <h1>210</h1>
-                  <h1>2</h1>
-                </div>
-              </div>
+              </div>)
+              })}
             </section>
+             {/* Item Cart */}
           </div>
           <section className=" flex justify-between font-bold bg-amber-200 h-20 items-center">
             <div>
               <h1 className="p-2 "> รวม</h1>
             </div>
             <div className="flex p-2 justify-between w-60">
-              <h1>{252} บาท</h1>
-              <h1>{3} รายการ </h1>
-              <h1>{6} ชิ้น</h1>
+              <h1>|{total} บาท |</h1>
+              <h1>{Mockitem.length} รายการ |</h1>
+              <h1>{Item} ชิ้น |</h1>
             </div>
           </section>
         </section>
@@ -72,6 +98,7 @@ export default function page() {
             <ButtonUI
               text={"Cash"}
               style={"bg-yellow-500 px-20 py-6 text-xl mr-20"}
+              
             />
           </section>
           <section>
