@@ -1,7 +1,21 @@
+"use client"
 import React from "react";
-import { ButtonUI } from "../component/Button";
+import ButtonUI  from "../component/Button";
 import { MdOutlineDelete } from "react-icons/md";
+import { useState } from "react";
+import  ItemList  from "../component/Item";
+import {Button, Modal} from "@heroui/react";
+import {Rocket} from "@gravity-ui/icons";
 export default function page() {
+
+  const [isOpen, setIsOpen] = useState(false);
+  const [selectedItem, setSelectedItem] = useState(null);
+
+
+   function handleSelect(item) {
+    setSelectedItem(item);
+    setIsOpen(true);
+  }
 
   const Mockitem = [{
      name: "pencil",
@@ -32,7 +46,15 @@ export default function page() {
     return result
   }
 
-  
+  const [Barcode,SetBarcode] = useState("")
+ function barcode(e) {
+  let result = e.target.value
+  SetBarcode(result)
+ }
+ function DeleteBarcode(params) {
+  SetBarcode("")
+ }
+
 let Item =(calculateItem(Mockitem))
 let total = (calculateTotal(Mockitem))
   return (
@@ -47,10 +69,12 @@ let total = (calculateTotal(Mockitem))
             className="p-4 w-[1250px] border-2 border-gray-400 rounded-3xl"
             type="text"
             placeholder="Scan The Barcode"
+            value={Barcode}
+            onChange={(e)=>barcode(e)}
           ></input>
         </div>
         <div className="">
-          <button className="hover:opacity-50 flex  items-center ">ลบรายการ<MdOutlineDelete className="text-4xl" />
+          <button onClick={DeleteBarcode} className="hover:opacity-50 flex  items-center "><MdOutlineDelete className="text-4xl" />
           </button>
           </div>
       </header>
@@ -68,16 +92,12 @@ let total = (calculateTotal(Mockitem))
               </div>
             </header>
             {/* Item Cart */}
-            <section className=" bg-gray-100 p-2 h-[400]">
+            <section className=" bg-gray-100 p-2 h-[400]" >
               {Mockitem.map((item,index)=>{
-               return( <div key={index} className="p-2 flex justify-between">
-                <h1>{index+1}. {item.name}</h1>
-                <div className="flex w-60 p-2 justify-between">
-                  <h1>{item.amount}</h1>
-                  <h1>{item.quality}</h1>
-                </div>
-              </div>)
-              })}
+               return <ItemList item={item}  index={index} key={index}   onSelect={handleSelect}/>
+              })
+              }
+      
             </section>
              {/* Item Cart */}
           </div>
@@ -108,8 +128,38 @@ let total = (calculateTotal(Mockitem))
             />
           </section>
         </section>
+        
       </section>
       {/* <------- Section ------> */}
+       <Modal  isOpen={isOpen} onOpenChange={setIsOpen}>
+      <Modal.Backdrop>
+        <Modal.Container>
+          <Modal.Dialog className="sm:max-w-[360px]">
+            <Modal.CloseTrigger />
+            <Modal.Header>
+              <Modal.Icon className="bg-default text-foreground">
+                <Rocket className="size-5" />
+              </Modal.Icon>
+              <Modal.Heading>Welcome to HeroUI</Modal.Heading>
+            </Modal.Header>
+            <Modal.Body>
+              <p>
+                A beautiful, fast, and modern React UI library for building accessible and
+                customizable web applications with ease.
+              </p>
+            </Modal.Body>
+            <Modal.Footer>
+              <Button className="w-full" slot="close">
+                Continue
+              </Button>
+            </Modal.Footer>
+          </Modal.Dialog>
+        </Modal.Container>
+      </Modal.Backdrop>
+    </Modal>
+
     </main>
+    
   );
+  
 }

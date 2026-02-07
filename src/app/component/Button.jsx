@@ -2,6 +2,6 @@
 
 import {Button} from "@heroui/react";
 
-export function ButtonUI({text,style}) {
+export default function ButtonUI({text,style}) {
   return <Button className={style} onPress={() => console.log("Button pressed")}>{text}</Button>;
 }
