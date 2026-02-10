@@ -18,36 +18,36 @@ export default function page() {
     setIsOpen(true);
   }
 
-  const [Mockitem,setMockitem] = useState([{
+  let database = [{
     productId: "2468",
     name: "Pencil",
     price: 10,
-    quality: 1,
 
   },{
     productId: "5648",
     name: "เลย์",
     price: 22,
-    quality: 2,
-  },])
+  },]
+
+  const [Mockitem,setMockitem] = useState(database)
   
 
-  function calculateTotal(Mockitem) {
-    let result = 0
-    for (let i = 0; i < Mockitem.length; i++) {
-    const element = Mockitem[i];
-     result += (element.price * element.quality)
-  }
-  return result
-  }
-  function calculateItem(Mockitem) {
-    let result = 0
-    for (let i = 0; i < Mockitem.length; i++) {
-      const element = Mockitem[i];
-      result += element.quality
-    }
-    return result
-  }
+  // function calculateTotal(Mockitem) {
+  //   let result = 0
+  //   for (let i = 0; i < Mockitem.length; i++) {
+  //   const element = Mockitem[i];
+  //    result += (element.price * element.quality)
+  // }
+  // return result
+  // }
+  // function calculateItem(Mockitem) {
+  //   let result = 0
+  //   for (let i = 0; i < Mockitem.length; i++) {
+  //     const element = Mockitem[i];
+  //     console.log(result += element.quality)
+  //   }
+  //   return result
+  // }
 
   const Barcode = useRef()
  
@@ -55,16 +55,13 @@ export default function page() {
 
  function handleEnter(e) {
   if(e.key === "Enter"){
+    // บาร์โค้ด
      const barcode = Barcode.current.value
-    let found = Mockitem.find((prev => prev.productId === barcode))
-  //   if(found){
-  //   console.log("ไม่พบสืนค้า")
-  //   Barcode.current.value = ""
-  //   return
-  // }
+     // ถ้าเจอสินค้า 
+    let found = database.find((prev => prev.productId === barcode))
 
-
-   setMockitem((prev) => {
+   if(found){
+    setMockitem((prev) => {
       const exist = prev.find(
         (item) => item.productId === barcode
       )
@@ -77,11 +74,15 @@ export default function page() {
             : item
         )
       }
+        return [setMockitem((prev)=>[...prev,found])]
+      
 
       // 👉 ยังไม่มี เพิ่มใหม่
-      return [setMockitem((prev)=>[...prev,found])]
-    })
 
+    })
+   }else{
+    alert("ไม่พบสินค้า")
+   }
     Barcode.current.value = ""
   }
  }
@@ -89,8 +90,8 @@ export default function page() {
   SetBarcode("")
  }
 
-let Item =(calculateItem(Mockitem))
-let total = (calculateTotal(Mockitem))
+// let Item =(calculateItem(Mockitem))
+// let total = (calculateTotal(Mockitem))
 
 function DeleteOption(id) {
   console.log("ลบรายการ",id)
@@ -145,9 +146,9 @@ function DeleteOption(id) {
               <h1 className="p-2 "> รวม</h1>
             </div>
             <div className="flex p-2 justify-between w-60">
-              <h1>|{total} บาท |</h1>
+              <h1>|{} บาท |</h1>
               <h1>{Mockitem.length} รายการ |</h1>
-              <h1>{Item} ชิ้น |</h1>
+              <h1>{} ชิ้น |</h1>
             </div>
           </section>
         </section>
