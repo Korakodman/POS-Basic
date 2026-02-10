@@ -1,11 +1,12 @@
 "use client"
-import React from "react";
+import React, { useRef } from "react";
 import ButtonUI  from "../component/Button";
 import { MdOutlineDelete } from "react-icons/md";
 import { useState } from "react";
 import  ItemList  from "../component/Item";
 import {Button, Modal} from "@heroui/react";
 import {Rocket} from "@gravity-ui/icons";
+
 export default function page() {
 
   const [isOpen, setIsOpen] = useState(false);
@@ -17,23 +18,25 @@ export default function page() {
     setIsOpen(true);
   }
 
-  const Mockitem = [{
-     name: "pencil",
-    amount: 10,
+  const [Mockitem,setMockitem] = useState([{
+    productId: "2468",
+    name: "Pencil",
+    price: 10,
     quality: 1,
 
   },{
-     name: "เลย์",
-    amount: 22,
+    productId: "5648",
+    name: "เลย์",
+    price: 22,
     quality: 2,
-  },]
+  },])
   
 
   function calculateTotal(Mockitem) {
     let result = 0
     for (let i = 0; i < Mockitem.length; i++) {
     const element = Mockitem[i];
-     result += (element.amount * element.quality)
+     result += (element.price * element.quality)
   }
   return result
   }
@@ -46,10 +49,41 @@ export default function page() {
     return result
   }
 
-  const [Barcode,SetBarcode] = useState("")
- function barcode(e) {
-  let result = e.target.value
-  SetBarcode(result)
+  const Barcode = useRef()
+ 
+  
+
+ function handleEnter(e) {
+  if(e.key === "Enter"){
+     const barcode = Barcode.current.value
+    let found = Mockitem.find((prev => prev.productId === barcode))
+  //   if(found){
+  //   console.log("ไม่พบสืนค้า")
+  //   Barcode.current.value = ""
+  //   return
+  // }
+
+
+   setMockitem((prev) => {
+      const exist = prev.find(
+        (item) => item.productId === barcode
+      )
+
+      if (exist) {
+        // 👉 มีแล้ว เพิ่มจำนวน
+        return prev.map((item) =>
+          item.productId === barcode
+            ? { ...item, quality: item.quality + 1 }
+            : item
+        )
+      }
+
+      // 👉 ยังไม่มี เพิ่มใหม่
+      return [setMockitem((prev)=>[...prev,found])]
+    })
+
+    Barcode.current.value = ""
+  }
  }
  function DeleteBarcode(params) {
   SetBarcode("")
@@ -57,6 +91,11 @@ export default function page() {
 
 let Item =(calculateItem(Mockitem))
 let total = (calculateTotal(Mockitem))
+
+function DeleteOption(id) {
+  console.log("ลบรายการ",id)
+    setMockitem((prev)=>prev.filter((item)=>item.productId !== id))
+}
   return (
     <main className=" min-h-screen w-screen  bg-gray-200 font-sans">
       {/* <------- Header -------> */}
@@ -69,8 +108,8 @@ let total = (calculateTotal(Mockitem))
             className="p-4 w-[1250px] border-2 border-gray-400 rounded-3xl"
             type="text"
             placeholder="Scan The Barcode"
-            value={Barcode}
-            onChange={(e)=>barcode(e)}
+            ref={Barcode}
+           onKeyDown={handleEnter}
           ></input>
         </div>
         <div className="">
@@ -137,20 +176,16 @@ let total = (calculateTotal(Mockitem))
           <Modal.Dialog className="sm:max-w-[360px]">
             <Modal.CloseTrigger />
             <Modal.Header>
-              <Modal.Icon className="bg-default text-foreground">
-                <Rocket className="size-5" />
-              </Modal.Icon>
-              <Modal.Heading>Welcome to HeroUI</Modal.Heading>
+              <Modal.Heading>ลบรายการหรือไม่?</Modal.Heading>
             </Modal.Header>
             <Modal.Body>
-              <p>
-                A beautiful, fast, and modern React UI library for building accessible and
-                customizable web applications with ease.
-              </p>
+              <h1>
+               {selectedItem?.name}
+              </h1>
             </Modal.Body>
             <Modal.Footer>
-              <Button className="w-full" slot="close">
-                Continue
+              <Button className="w-full" slot="close" variant='danger' onClick={()=>DeleteOption(selectedItem?.productId)}>
+                ลบ
               </Button>
             </Modal.Footer>
           </Modal.Dialog>
