@@ -29,25 +29,25 @@ export default function page() {
     price: 22,
   },]
 
-  const [Mockitem,setMockitem] = useState(database)
+  const [Mockitem,setMockitem] = useState([])
   
 
-  // function calculateTotal(Mockitem) {
-  //   let result = 0
-  //   for (let i = 0; i < Mockitem.length; i++) {
-  //   const element = Mockitem[i];
-  //    result += (element.price * element.quality)
-  // }
-  // return result
-  // }
-  // function calculateItem(Mockitem) {
-  //   let result = 0
-  //   for (let i = 0; i < Mockitem.length; i++) {
-  //     const element = Mockitem[i];
-  //     console.log(result += element.quality)
-  //   }
-  //   return result
-  // }
+  function calculateTotal(Mockitem) {
+    let result = 0
+    for (let i = 0; i < Mockitem.length; i++) {
+    const element = Mockitem[i];
+     result += (element.price * element.quality)
+  }
+  return result
+  }
+  function calculateItem(Mockitem) {
+    let result = 0
+    for (let i = 0; i < Mockitem.length; i++) {
+      const element = Mockitem[i];
+      console.log(result += element.quality)
+    }
+    return result
+  }
 
   const Barcode = useRef()
  
@@ -60,38 +60,33 @@ export default function page() {
      // ถ้าเจอสินค้า 
     let found = database.find((prev => prev.productId === barcode))
 
-   if(found){
-    setMockitem((prev) => {
-      const exist = prev.find(
-        (item) => item.productId === barcode
+  if (found) {
+  setMockitem((prev) => {
+    const exist = prev.find(item => item.productId === found.productId)
+
+    if (exist) {
+      // ถ้ามีอยู่แล้ว → เพิ่มจำนวน
+      return prev.map(item =>
+        item.productId === found.productId
+          ? { ...item, quality: item.quality + 1 }
+          : item
       )
-
-      if (exist) {
-        // 👉 มีแล้ว เพิ่มจำนวน
-        return prev.map((item) =>
-          item.productId === barcode
-            ? { ...item, quality: item.quality + 1 }
-            : item
-        )
-      }
-        return [setMockitem((prev)=>[...prev,found])]
+    } else {
+      // ถ้ายังไม่มี → เพิ่มเข้าไปใหม่
       
-
-      // 👉 ยังไม่มี เพิ่มใหม่
-
-    })
-   }else{
-    alert("ไม่พบสินค้า")
-   }
-    Barcode.current.value = ""
+      return [...prev, { ...found, quality: 1 }]
+      
+    }
+  })
+}else{
+  alert("ไม่พบสินค้า")
+}
+ 
+  Barcode.current.value = ""
   }
- }
- function DeleteBarcode(params) {
-  SetBarcode("")
- }
-
-// let Item =(calculateItem(Mockitem))
-// let total = (calculateTotal(Mockitem))
+  }
+let Item =(calculateItem(Mockitem))
+let total = (calculateTotal(Mockitem))
 
 function DeleteOption(id) {
   console.log("ลบรายการ",id)
@@ -114,7 +109,7 @@ function DeleteOption(id) {
           ></input>
         </div>
         <div className="">
-          <button onClick={DeleteBarcode} className="hover:opacity-50 flex  items-center "><MdOutlineDelete className="text-4xl" />
+          <button onClick={console.log("test")} className="hover:opacity-50 flex  items-center "><MdOutlineDelete className="text-4xl" />
           </button>
           </div>
       </header>
@@ -146,9 +141,9 @@ function DeleteOption(id) {
               <h1 className="p-2 "> รวม</h1>
             </div>
             <div className="flex p-2 justify-between w-60">
-              <h1>|{} บาท |</h1>
+              <h1>|{total} บาท |</h1>
               <h1>{Mockitem.length} รายการ |</h1>
-              <h1>{} ชิ้น |</h1>
+              <h1>{Item} ชิ้น |</h1>
             </div>
           </section>
         </section>
