@@ -6,12 +6,14 @@ import { useState } from "react";
 import  ItemList  from "../component/Item";
 import {Button, Modal} from "@heroui/react";
 import {Rocket} from "@gravity-ui/icons";
+import { MoDalUI } from "../component/Modal";
+import AlertUI from "../component/Alert";
 
 export default function page() {
 
   const [isOpen, setIsOpen] = useState(false);
   const [selectedItem, setSelectedItem] = useState(null);
-
+  const [alert,setalert] = useState(false)
 
    function handleSelect(item) {
     setSelectedItem(item);
@@ -79,7 +81,12 @@ export default function page() {
     }
   })
 }else{
-  alert("ไม่พบสินค้า")
+  setalert(true)
+  setTimeout(() => {
+    setalert(false)
+  }, 2000);
+    Barcode.current.value = ""
+  return  
 }
  
   Barcode.current.value = ""
@@ -127,12 +134,11 @@ function DeleteOption(id) {
               </div>
             </header>
             {/* Item Cart */}
-            <section className=" bg-gray-100 p-2 h-[400]" >
-              {Mockitem.map((item,index)=>{
+            <section className=" bg-gray-100 p-2 h-[400] overflow-y-auto " >
+         {Mockitem.map((item,index)=>{
                return <ItemList item={item}  index={index} key={index}   onSelect={handleSelect}/>
-              })
-              }
-      
+              })}
+
             </section>
              {/* Item Cart */}
           </div>
@@ -148,7 +154,7 @@ function DeleteOption(id) {
           </section>
         </section>
         {/* <----- Header list ----- > */}
-        <section className="flex p-2 h-[300] items-center mx-56 justify-center ">
+        <section className="flex p-2 h-[280] items-center mx-56 justify-center ">
           <section>
             <ButtonUI
               text={"Cash"}
@@ -166,29 +172,15 @@ function DeleteOption(id) {
         
       </section>
       {/* <------- Section ------> */}
-       <Modal  isOpen={isOpen} onOpenChange={setIsOpen}>
-      <Modal.Backdrop>
-        <Modal.Container>
-          <Modal.Dialog className="sm:max-w-[360px]">
-            <Modal.CloseTrigger />
-            <Modal.Header>
-              <Modal.Heading>ลบรายการหรือไม่?</Modal.Heading>
-            </Modal.Header>
-            <Modal.Body>
-              <h1>
-               {selectedItem?.name}
-              </h1>
-            </Modal.Body>
-            <Modal.Footer>
-              <Button className="w-full" slot="close" variant='danger' onClick={()=>DeleteOption(selectedItem?.productId)}>
-                ลบ
-              </Button>
-            </Modal.Footer>
-          </Modal.Dialog>
-        </Modal.Container>
-      </Modal.Backdrop>
-    </Modal>
-
+      <MoDalUI isOpen={isOpen} setIsOpen={setIsOpen}  selectedItem={selectedItem} DeleteOption={DeleteOption}/>
+      {alert && (
+        <AlertUI
+          color="success"
+          title="สำเร็จ!"
+          description="บันทึกข้อมูลเรียบร้อยแล้ว"
+          onClose={() => setalert(false)}
+        />
+      )}
     </main>
     
   );
