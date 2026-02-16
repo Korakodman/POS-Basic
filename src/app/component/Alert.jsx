@@ -5,7 +5,7 @@ export default function AlertUI() {
     <Alert status='danger' className=' absolute   w-auto bottom-10 right-10 '>
         <Alert.Indicator />
         <Alert.Content>
-          <Alert.Title>ไม่พบรหัสที่ตรงกับสิน</Alert.Title>
+          <Alert.Title>ไม่พบรหัสที่ตรงกับสินค้า</Alert.Title>
           <Alert.Description>
             กรุณาลองใหม่อีกครั้ง
           </Alert.Description>

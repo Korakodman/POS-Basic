@@ -175,9 +175,6 @@ function DeleteOption(id) {
       <MoDalUI isOpen={isOpen} setIsOpen={setIsOpen}  selectedItem={selectedItem} DeleteOption={DeleteOption}/>
       {alert && (
         <AlertUI
-          color="success"
-          title="สำเร็จ!"
-          description="บันทึกข้อมูลเรียบร้อยแล้ว"
           onClose={() => setalert(false)}
         />
       )}
