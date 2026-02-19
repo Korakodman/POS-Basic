@@ -51,7 +51,7 @@ export default function page() {
         <header className='flex justify-center '>
           <h1 className='text-2xl mt-2 '>รายการสินค้าในคลัง</h1>
         </header>
-        <div className='p-4 grid grid-cols-3 place-items-center '>
+         <div className='p-4 grid grid-cols-3 place-items-center'>
        {itemMock.map((item,index)=>{
         return(
            <ProductsUI key={index} name={item.name} price={item.price} quantity={item.quantity} catalog={item.catalog} image={item.image}/>
