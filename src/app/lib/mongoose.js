@@ -1,4 +1,6 @@
 import mongoose from "mongoose";
+import dotenv from "dotenv"
+dotenv.config()
 let URLDATABASE = process.env.URLDATABASE
 
 if (!URLDATABASE) {
@@ -17,6 +19,7 @@ async function connectDB() {
   }
 
   if (!cached.promise) {
+    
     cached.promise = mongoose.connect(URLDATABASE).then((mongoose) => {
       return mongoose;
     });
