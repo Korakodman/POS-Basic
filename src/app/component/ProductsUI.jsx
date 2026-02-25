@@ -1,10 +1,14 @@
 "use client"
-import React from "react";
+import React,{useState} from "react";
+import {Button, Modal} from "@heroui/react";
+export default function ProductsUI({name,price,stock,category,image}) {
+ const [isOpen, setIsOpen] = useState(false);
 
-export default function ProductsUI({name,price,quantity,catalog,image}) {
-
+     function handleModal() {
+    setIsOpen(true);
+  }
   const openModal = ({name}) =>{
-  console.log("สินค้าชื่อ",name)
+  handleModal()
   }
 
   return (
@@ -15,9 +19,32 @@ export default function ProductsUI({name,price,quantity,catalog,image}) {
       <section className=" p-2">
         <div className="font-bold">ชื่อสินค้า : {name}</div>
         <div className="mt-4">ราคา : {price}</div>
-        <div className="mt-4">จำนวนในคลัง : {quantity}</div>
-         <div className="mt-4">ประเภท : {catalog}</div>
+        <div className="mt-4">จำนวนในคลัง : {stock}</div>
+         <div className="mt-4">ประเภท : {category}</div>
       </section>
+       <Modal  isOpen={isOpen} onOpenChange={setIsOpen}>
+              <Modal.Backdrop>
+                <Modal.Container>
+                  <Modal.Dialog className="sm:max-w-[360px]">
+                    <Modal.CloseTrigger />
+                    <Modal.Header>
+                      <Modal.Heading>แก้ไขรายการหรือไม่?</Modal.Heading>
+                    </Modal.Header>
+                    <Modal.Body>
+                      <h1>
+                       แก้ไข
+                      </h1>
+                    </Modal.Body>
+                    <Modal.Footer>
+                      <Button className="w-full" slot="close" variant='primary' >
+                        ลบ
+                      </Button>
+                    </Modal.Footer>
+                  </Modal.Dialog>
+                </Modal.Container>
+              </Modal.Backdrop>
+            </Modal>
     </div>
+    
   );
 }
