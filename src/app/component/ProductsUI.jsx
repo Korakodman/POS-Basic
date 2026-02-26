@@ -11,10 +11,11 @@ export default function ProductsUI({name,price,stock,category,image}) {
   handleModal()
   }
 
+
   return (
     <div onClick={()=>openModal({name})} className="flex border-2  w-[400] h-[200] justify-around items-center bg-white p-2 rounded-xl mt-10 drop-shadow-gray-500 drop-shadow-2xl" >
       <section className="w-[175] " >
-        <img src={image}></img>
+        <img src={image} alt="preview"></img>
       </section>
       <section className=" p-2">
         <div className="font-bold">ชื่อสินค้า : {name}</div>
