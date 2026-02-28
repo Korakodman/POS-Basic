@@ -6,7 +6,9 @@ import ProductsUI from "../component/ProductsUI";
 import { Plus } from "@gravity-ui/icons";
 import { Button, Modal } from "@heroui/react";
 import { useFormState } from "react-dom";
+import useFetchData from "../hooks/useFetchData";
 export default function page() {
+
   const [isOpen, setIsOpen] = useState(false);
   function handleModal() {
     setIsOpen(true);
@@ -21,49 +23,30 @@ export default function page() {
     category: "",
     image: "",
   });
-  useEffect(() => {
-    console.log(products);
-  }, [products]);
-  //  let itemMock = [{
-  //   image:"https://st.bigc-cs.com/cdn-cgi/image/format=webp,quality=90/public/media/catalog/product/01/88/8850718807901/8850718807901_1-20240531120654-.jpg",
-  //     name:"เลย์แผ่นเรียบ",
-  //     price:22,
-  //     stock:20,
-  //     catalog:"ขนมทานเล่น"
 
-  //    },
-  //   {
-  //     image :"https://o2o-static.lotuss.com/products/86593/72548045.jpg",
-  //     name:"เลย์บาร์บีคิว",
-  //     price:22,
-  //     stock:10,
-  //     catalog:"ขนมทานเล่น"
 
-  //    },
-  //   {
-  //     image:"https://gg.lnwfile.com/g2y3jl.webp",
-  //     name:"เลย์รสหมึกย่าง",
-  //     price:22,
-  //     stock:11,
-  //     catalog:"ขนมทานเล่น"
+    const { data, loading, error } = useFetchData("http://localhost:3000/api/products")
+   useEffect(()=>{
+   setproducts(data)
 
-  //    },
-  //   {
-  //      image:"https://st.bigc-cs.com/cdn-cgi/image/format=webp,quality=90/public/media/catalog/product/55/88/8850718711055/8850718711055_2-20240610175920-.jpg",
-  //     name:"เลย์รสไข่เค็ม",
-  //     price:22,
-  //     quantity:20,
-  //     catalog:"ขนมทานเล่น"
+   },[data])
 
-  //    }]
 
   function cancel() {
     setPreview(null)
   }
-   
   
-  function handleForm(params) {
-    setproducts((prev) => [...prev, { ...formdata,image:preview }]);
+  
+  
+ async function handleForm(e) {
+    e.preventDefault()
+    const res = await fetch("http://localhost:3000/api/products", {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({ ...formdata, image: preview }),
+  });
+  const data = await res.json();
+    setproducts((prev) => [...prev, data]);
     setformdata({
       name: "",
       price: 0,
@@ -72,6 +55,7 @@ export default function page() {
       image: "",
     });
     setIsOpen(false);
+
   }
 
   function handleInput(e) {
@@ -83,8 +67,7 @@ export default function page() {
     }));
   }
 
-
-
+ 
   
   const [selectimage, selectimagesetImage] = useState(null);
   const [preview, setPreview] = useState(null);
@@ -98,6 +81,12 @@ export default function page() {
       cancel()
     }
   }
+
+
+
+
+
+
   return (
     <main className=" min-h-screen w-screen  bg-gray-300 font-sans">
       <header className="h-20 p-2 flex border-4  items-center border-b-white">
@@ -127,7 +116,7 @@ export default function page() {
           <h1 className="text-2xl mt-2 ">รายการสินค้าในคลัง</h1>
         </header>
         <div className="p-4 grid grid-cols-3 place-items-center">
-          {products.map((item, index) => {
+          {products?.map((item, index) => {
             return (
               <ProductsUI
                 key={index}
@@ -159,36 +148,36 @@ export default function page() {
                 <Modal.Heading>เพิ่มรายการหรือไม่?</Modal.Heading>
               </Modal.Header>
               <Modal.Body>
-                <form className="grid" onSubmit={handleForm}>
-                  <label>ชื่อสินค้า</label>
+                <form className="grid" onSubmit={(e)=>handleForm(e)}>
+                  <label aria-label="text">ชื่อสินค้า</label>
                   <input
                     className="border-2 border-gray-200 rounded-md mt-2 p-2"
                     name="name"
                     onChange={(e) => handleInput(e)}
                     required
                   ></input>
-                  <label>ราคา</label>
+                  <label aria-label="text" >ราคา</label>
                   <input
                     className="border-2 border-gray-200 rounded-md mt-2 p-2"
                     name="price"
                     onChange={(e) => handleInput(e)}
                     required
                   ></input>
-                  <label>จำนวนที่รับ</label>
+                  <label aria-label="text">จำนวนที่รับ</label>
                   <input
                     className="border-2 border-gray-200 rounded-md mt-2 p-2"
                     name="stock"
                     onChange={(e) => handleInput(e)}
                     required
                   ></input>
-                  <label>ประเภท</label>
+                  <label aria-label="text">ประเภท</label>
                   <input
                     className="border-2 border-gray-200 rounded-md mt-2 p-2 "
                     name="category"
                     onChange={(e) => handleInput(e)}
                     required
                   ></input>
-                  <label>รูปสินค้า</label>
+                  <label aria-label="text">รูปสินค้า</label>
                   <input
                     className="border-2 border-gray-200 rounded-md mt-2 p-1"
                     type="file"
