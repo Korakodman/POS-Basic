@@ -36,14 +36,14 @@ export default function page() {
     setPreview(null)
   }
   
-  
+
   
  async function handleForm(e) {
     e.preventDefault()
     const res = await fetch("http://localhost:3000/api/products", {
     method: "POST",
     headers: { "Content-Type": "application/json" },
-    body: JSON.stringify({ ...formdata, image: preview }),
+    body: JSON.stringify({ ...formdata,}),
   });
   const data = await res.json();
     setproducts((prev) => [...prev, data]);
@@ -74,8 +74,16 @@ export default function page() {
 
   function handleImageChange(e) {
     const file = e.target.files[0];
+    const reader = new FileReader()
+
+    reader.onloadend = () => {
+  setformdata(prev => ({
+    ...prev,
+    image: reader.result // base64 string
+  }))
+}
+reader.readAsDataURL(file)
     if (file) {
-      selectimagesetImage(file);
       setPreview(URL.createObjectURL(file));
     }else{
       cancel()
