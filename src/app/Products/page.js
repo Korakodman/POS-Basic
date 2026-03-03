@@ -133,6 +133,7 @@ reader.readAsDataURL(file)
                 stock={item.stock}
                 category={item.category}
                 image={item.image}
+                preview={preview}
               />
             );
           })}

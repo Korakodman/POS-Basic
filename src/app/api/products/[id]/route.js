@@ -4,7 +4,6 @@ import { NextResponse } from "next/server";
 import { ObjectId } from "mongodb";
 
 export async function DELETE(req,{params}) {
-    // - เชื่อมต่อฐานข้อมูลโดยส่ง env ไปตรงๆ - //
     await connectDB()
     try {
           // - รับพารามิเตอร์เข้าถึง id อาจจะใช้ consolg.log เรียกดูก่อนก็ได้ - //
