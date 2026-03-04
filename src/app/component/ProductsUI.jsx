@@ -1,22 +1,54 @@
 "use client"
 import React,{useState} from "react";
 import {Button, Modal} from "@heroui/react";
-export default function ProductsUI({name,price,stock,category,image,preview}) {
+export default function ProductsUI({name,price,stock,category,image,preview,setPreview}) {
  const [isOpen, setIsOpen] = useState(false);
+ const [EditProduct,setEditProduct] = useState({
+  })
 
      function handleModal() {
     setIsOpen(true);
   }
-  const openModal = ({name}) =>{
+  const openModal = ({name,price,stock,category,preview}) =>{
   handleModal()
+  setEditProduct({
+    name:name,
+    price:price,
+    stock:stock,
+    category:category,
+    image:preview
+  })
   }
   function handleInput (e) {
     const {name ,value } = e.target
-    console.log(value)
+    setEditProduct(prev=>({
+      ...prev,[name]:value
+  }))
+  }
+  function handleForm(e) {
+    e.preventDefault()
   }
 
+
+  function handleImageChange(e) {
+    const file = e.target.files[0];
+    const reader = new FileReader()
+
+    reader.onloadend = () => {
+  setEditProduct(prev => ({
+    ...prev,
+    image: reader.result // base64 string
+  }))
+}
+reader.readAsDataURL(file)
+    if (file) {
+      setPreview(URL.createObjectURL(file));
+    }else{
+      cancel()
+    }
+  }
   return (
-    <div onClick={()=>openModal({name})} className="flex border-2  w-[400] h-[200] justify-around items-center bg-white p-2 rounded-xl mt-10 drop-shadow-gray-500 drop-shadow-2xl" >
+    <div onClick={()=>openModal({name,price,stock,category,preview})} className="flex border-2  w-[400] h-[200] justify-around items-center bg-white p-2 rounded-xl mt-10 drop-shadow-gray-500 drop-shadow-2xl" >
       <section className="w-[175] " >
         <img src={image} alt="preview"></img>
       </section>
@@ -42,7 +74,7 @@ export default function ProductsUI({name,price,stock,category,image,preview}) {
                     name="name"
                     onChange={(e) => handleInput(e)}
                     required
-                    value={name}
+                    value={EditProduct.name}
                   ></input>
                   <label aria-label="text" >ราคา</label>
                   <input
@@ -50,7 +82,7 @@ export default function ProductsUI({name,price,stock,category,image,preview}) {
                     name="price"
                     onChange={(e) => handleInput(e)}
                     required
-                    value={price}
+                    value={EditProduct.price}
                   ></input>
                   <label aria-label="text">จำนวนที่รับ</label>
                   <input
@@ -58,7 +90,7 @@ export default function ProductsUI({name,price,stock,category,image,preview}) {
                     name="stock"
                     onChange={(e) => handleInput(e)}
                     required
-                    value={stock}
+                    value={EditProduct.stock}
                   ></input>
                   <label aria-label="text">ประเภท</label>
                   <input
@@ -66,21 +98,21 @@ export default function ProductsUI({name,price,stock,category,image,preview}) {
                     name="category"
                     onChange={(e) => handleInput(e)}
                     required
-                    value={category}
+                    value={EditProduct.category}
                   ></input>
                   <label aria-label="text">รูปสินค้า</label>
                   <input
                     className="border-2 border-gray-200 rounded-md mt-2 p-1"
                     type="file"
                     name="image"
-                    
+                    onChange={handleImageChange}
                     required
                   ></input>
                   <div className="flex justify-center">
                     {image && (
                       // eslint-disable-next-line @next/next/no-img-element
                       <img
-                        src={image}
+                        src={EditProduct.image || image}
                         alt="preview"
                         width={100}
                         className=" "

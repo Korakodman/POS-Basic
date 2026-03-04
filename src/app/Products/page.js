@@ -134,6 +134,7 @@ reader.readAsDataURL(file)
                 category={item.category}
                 image={item.image}
                 preview={preview}
+                setPreview={setPreview}
               />
             );
           })}

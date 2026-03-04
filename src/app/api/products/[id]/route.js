@@ -26,3 +26,20 @@ export async function DELETE(req,{params}) {
         }
     }
 }
+
+export async function PUT(req,{params}) {
+   await connectDB()
+  try {
+    const {id} =  await params
+    const result = await req.json()
+    const editproduct = await Product.findByIdAndUpdate(id,result,{new:true})
+    console.log("updated:", editproduct)
+    return NextResponse.json({message:"Edit Successfully"})
+  } catch (error) {
+    if(error){
+      console.log("error",error)
+    return NextResponse.json({message:"Error Edit",},{status:400})
+    }
+  }
+  
+}
