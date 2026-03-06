@@ -1,32 +1,45 @@
 "use client"
 import React,{useState} from "react";
 import {Button, Modal} from "@heroui/react";
-export default function ProductsUI({name,price,stock,category,image,preview,setPreview}) {
+export default function ProductsUI({name,price,stock,category,image,preview,setPreview,_id,item,setproducts}) {
  const [isOpen, setIsOpen] = useState(false);
- const [EditProduct,setEditProduct] = useState({
+
+const [SelectProduct,setSelectProduct] = useState({
   })
 
      function handleModal() {
     setIsOpen(true);
   }
-  const openModal = ({name,price,stock,category,preview}) =>{
+  const openModal = ({name,price,stock,category,preview,_id}) =>{
   handleModal()
-  setEditProduct({
-    name:name,
+  setSelectProduct(
+    { name:name,
     price:price,
     stock:stock,
     category:category,
-    image:preview
-  })
+    image:preview,
+    _id:_id
+  }
+  )
+    console.log(SelectProduct)
   }
   function handleInput (e) {
     const {name ,value } = e.target
-    setEditProduct(prev=>({
+    setSelectProduct(prev=>({
       ...prev,[name]:value
   }))
   }
-  function handleForm(e) {
-    e.preventDefault()
+ async function handleForm() {
+   try {
+    const res = await fetch(`http://localhost:3000/api/products/${SelectProduct._id}`, {
+    method: "PUT",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify(SelectProduct),
+  });
+
+   } catch (error) {
+    console.log("Something Error ",error)
+   }
   }
 
 
@@ -35,7 +48,7 @@ export default function ProductsUI({name,price,stock,category,image,preview,setP
     const reader = new FileReader()
 
     reader.onloadend = () => {
-  setEditProduct(prev => ({
+  setSelectProduct(prev => ({
     ...prev,
     image: reader.result // base64 string
   }))
@@ -48,8 +61,8 @@ reader.readAsDataURL(file)
     }
   }
   return (
-    <div onClick={()=>openModal({name,price,stock,category,preview})} className="flex border-2  w-[400] h-[200] justify-around items-center bg-white p-2 rounded-xl mt-10 drop-shadow-gray-500 drop-shadow-2xl" >
-      <section className="w-[175] " >
+    <div  className="flex border-2  w-[400] h-[200] justify-around items-center bg-white p-2 rounded-xl mt-10 drop-shadow-gray-500 drop-shadow-2xl" >
+      <section className="w-[175] "onClick={()=>openModal({name,price,stock,category,preview,_id})} >
         <img src={image} alt="preview"></img>
       </section>
       <section className=" p-2">
@@ -74,7 +87,7 @@ reader.readAsDataURL(file)
                     name="name"
                     onChange={(e) => handleInput(e)}
                     required
-                    value={EditProduct.name}
+                    value={SelectProduct.name}
                   ></input>
                   <label aria-label="text" >ราคา</label>
                   <input
@@ -82,7 +95,7 @@ reader.readAsDataURL(file)
                     name="price"
                     onChange={(e) => handleInput(e)}
                     required
-                    value={EditProduct.price}
+                    value={SelectProduct.price}
                   ></input>
                   <label aria-label="text">จำนวนที่รับ</label>
                   <input
@@ -90,7 +103,7 @@ reader.readAsDataURL(file)
                     name="stock"
                     onChange={(e) => handleInput(e)}
                     required
-                    value={EditProduct.stock}
+                    value={SelectProduct.stock}
                   ></input>
                   <label aria-label="text">ประเภท</label>
                   <input
@@ -98,7 +111,7 @@ reader.readAsDataURL(file)
                     name="category"
                     onChange={(e) => handleInput(e)}
                     required
-                    value={EditProduct.category}
+                    value={SelectProduct.category}
                   ></input>
                   <label aria-label="text">รูปสินค้า</label>
                   <input
@@ -112,7 +125,7 @@ reader.readAsDataURL(file)
                     {image && (
                       // eslint-disable-next-line @next/next/no-img-element
                       <img
-                        src={EditProduct.image || image}
+                        src={SelectProduct.image || image}
                         alt="preview"
                         width={100}
                         className=" "

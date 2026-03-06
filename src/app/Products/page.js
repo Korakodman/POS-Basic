@@ -135,6 +135,9 @@ reader.readAsDataURL(file)
                 image={item.image}
                 preview={preview}
                 setPreview={setPreview}
+                _id={item._id}
+                item={item}
+                setproducts={setproducts}
               />
             );
           })}

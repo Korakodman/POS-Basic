@@ -31,9 +31,13 @@ export async function PUT(req,{params}) {
    await connectDB()
   try {
     const {id} =  await params
-    const result = await req.json()
-    const editproduct = await Product.findByIdAndUpdate(id,result,{new:true})
-    console.log("updated:", editproduct)
+    const body = await req.json()
+
+
+    if(!body){
+        return NextResponse.json({message : "Product Not Found"},{ status:404})
+    }
+    const editproduct = await Product.findByIdAndUpdate(new ObjectId(id),(body),{new:true})
     return NextResponse.json({message:"Edit Successfully"})
   } catch (error) {
     if(error){
