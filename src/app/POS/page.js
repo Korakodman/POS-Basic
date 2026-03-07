@@ -8,7 +8,7 @@ import {Button, Modal} from "@heroui/react";
 import {Rocket} from "@gravity-ui/icons";
 import { MoDalUI } from "../component/Modal";
 import AlertUI from "../component/Alert";
-
+import useFetchData from "../hooks/useFetchData";
 export default function page() {
 
   const [isOpen, setIsOpen] = useState(false);
@@ -20,32 +20,23 @@ export default function page() {
     setIsOpen(true);
   }
 
-  let database = [{
-    productId: "2468",
-    name: "Pencil",
-    price: 10,
+const { data, loading, error } = useFetchData("http://localhost:3000/api/products")
 
-  },{
-    productId: "5648",
-    name: "เลย์",
-    price: 22,
-  },]
-
-  const [Mockitem,setMockitem] = useState([])
-  
-
-  function calculateTotal(Mockitem) {
+  const [POS,setPOS] = useState([])
+   
+ 
+  function calculateTotal(POS) {
     let result = 0
-    for (let i = 0; i < Mockitem.length; i++) {
-    const element = Mockitem[i];
+    for (let i = 0; i < POS.length; i++) {
+    const element = POS[i];
      result += (element.price * element.quality)
   }
   return result
   }
-  function calculateItem(Mockitem) {
+  function calculateItem(POS) {
     let result = 0
-    for (let i = 0; i < Mockitem.length; i++) {
-      const element = Mockitem[i];
+    for (let i = 0; i < POS.length; i++) {
+      const element = POS[i];
       console.log(result += element.quality)
     }
     return result
@@ -60,16 +51,16 @@ export default function page() {
     // บาร์โค้ด
      const barcode = Barcode.current.value
      // ถ้าเจอสินค้า 
-    let found = database.find((prev => prev.productId === barcode))
+    let found = data.find((prev => prev._id === barcode))
 
   if (found) {
-  setMockitem((prev) => {
-    const exist = prev.find(item => item.productId === found.productId)
+  setPOS((prev) => {
+    const exist = prev.find(item => item._id === found._id)
 
     if (exist) {
       // ถ้ามีอยู่แล้ว → เพิ่มจำนวน
       return prev.map(item =>
-        item.productId === found.productId
+        item._id === found._id
           ? { ...item, quality: item.quality + 1 }
           : item
       )
@@ -92,12 +83,12 @@ export default function page() {
   Barcode.current.value = ""
   }
   }
-let Item =(calculateItem(Mockitem))
-let total = (calculateTotal(Mockitem))
+let Item =(calculateItem(POS))
+let total = (calculateTotal(POS))
 
 function DeleteOption(id) {
   console.log("ลบรายการ",id)
-    setMockitem((prev)=>prev.filter((item)=>item.productId !== id))
+    setPOS((prev)=>prev.filter((item)=>item.productId !== id))
 }
   return (
     <main className=" min-h-screen w-screen  bg-gray-200 font-sans">
@@ -115,10 +106,7 @@ function DeleteOption(id) {
            onKeyDown={handleEnter}
           ></input>
         </div>
-        <div className="">
-          <button onClick={console.log("test")} className="hover:opacity-50 flex  items-center "><MdOutlineDelete className="text-4xl" />
-          </button>
-          </div>
+     
       </header>
       {/* <------- Header -------> */}
       {/* <------- Section ------> */}
@@ -135,7 +123,7 @@ function DeleteOption(id) {
             </header>
             {/* Item Cart */}
             <section className=" bg-gray-100 p-2 h-[400] overflow-y-auto " >
-         {Mockitem.map((item,index)=>{
+         {POS.map((item,index)=>{
                return <ItemList item={item}  index={index} key={index}   onSelect={handleSelect}/>
               })}
 
@@ -148,7 +136,7 @@ function DeleteOption(id) {
             </div>
             <div className="flex p-2 justify-between w-60">
               <h1>|{total} บาท |</h1>
-              <h1>{Mockitem.length} รายการ |</h1>
+              <h1>{POS.length} รายการ |</h1>
               <h1>{Item} ชิ้น |</h1>
             </div>
           </section>
