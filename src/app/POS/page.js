@@ -13,7 +13,10 @@ export default function page() {
 
   const [isOpen, setIsOpen] = useState(false);
   const [selectedItem, setSelectedItem] = useState(null);
-  const [alert,setalert] = useState(false)
+  const [Alert,setalert] = useState(false)
+
+
+
 
    function handleSelect(item) {
     setSelectedItem(item);
@@ -122,7 +125,7 @@ function DeleteOption(id) {
               </div>
             </header>
             {/* Item Cart */}
-            <section className=" bg-gray-100 p-2 h-[400] overflow-y-auto " >
+            <section className=" bg-gray-100 p-2 h-[400] overflow-y-auto "  >
          {POS.map((item,index)=>{
                return <ItemList item={item}  index={index} key={index}   onSelect={handleSelect}/>
               })}
@@ -147,13 +150,17 @@ function DeleteOption(id) {
             <ButtonUI
               text={"Cash"}
               style={"bg-yellow-500 px-20 py-6 text-xl mr-20"}
-              
+             HandlePayment={"cash"}
+             total={total}
+            setPOS={setPOS}
             />
           </section>
           <section>
             <ButtonUI
               text={"Payment"}
               style={"bg-blue-500 px-20 py-6 text-xl"}
+          HandlePayment={"payment"}
+          setPOS={setPOS}
             />
           </section>
         </section>
@@ -161,7 +168,7 @@ function DeleteOption(id) {
       </section>
       {/* <------- Section ------> */}
       <MoDalUI isOpen={isOpen} setIsOpen={setIsOpen}  selectedItem={selectedItem} DeleteOption={DeleteOption}/>
-      {alert && (
+      {Alert && (
         <AlertUI
           onClose={() => setalert(false)}
         />
