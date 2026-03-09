@@ -153,6 +153,7 @@ function DeleteOption(id) {
              HandlePayment={"cash"}
              total={total}
             setPOS={setPOS}
+            POS={POS}
             />
           </section>
           <section>
@@ -161,6 +162,7 @@ function DeleteOption(id) {
               style={"bg-blue-500 px-20 py-6 text-xl"}
           HandlePayment={"payment"}
           setPOS={setPOS}
+          POS={POS}
             />
           </section>
         </section>

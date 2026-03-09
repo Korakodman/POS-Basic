@@ -2,30 +2,58 @@
 
 import { useState } from "react";
 import { Button, Modal } from "@heroui/react";
-export default function ButtonUI({text,style,HandlePayment,total,setPOS},) {
+export default function ButtonUI({text,style,HandlePayment,total,setPOS,POS},) {
 
 
   const [paymentMethod, setPaymentMethod] = useState(null)
   const [isOpen, setIsOpen] = useState(false);
-
+  const [ReceiveMoney,setReceiveMoney] = useState(0)
+  const [Change,setChange] = useState(0)
   
 
 
 function handlePay(HandlePayment) {
   if (HandlePayment == "cash") {
-    setPaymentMethod(true)
-    setIsOpen(true)
-  } else {
-     setPaymentMethod(false)
+      if(POS.length === 0){
+        alert("ไม่พบสินค้าที่ต้องการชำระ")
+      }else{
+        setPaymentMethod(true)
        setIsOpen(true)
+      }
+  } else {
+      if(POS.length === 0){
+        alert("ไม่พบสินค้าที่ต้องการชำระ")
+      }else{
+        setPaymentMethod(false)
+       setIsOpen(true)
+      }
   }
 }
 
 function handleAccept(params) {
   setPOS([])
   alert("เสร็จสิน")
+  setChange(0)
+  setReceiveMoney(0)
 }
  
+const handleCaculate = (e) => {
+  setReceiveMoney(e.target.value)
+}
+function Caculate(params) {
+const result = (Number(ReceiveMoney) - total)
+   if(result >= 0){
+    setChange(result)
+   }else{
+    alert("จำนวนเงินที่รับมาไม่พอ")
+    return
+   }
+
+}
+function Cancel(params) {
+    setChange(0)
+  setReceiveMoney(0)
+}
   return <>
   <Button className={style} onClick={()=>handlePay(HandlePayment)} >{text}</Button>
   <Modal
@@ -36,17 +64,26 @@ function handleAccept(params) {
       >
         <Modal.Backdrop>
           <Modal.Container>
-            <Modal.Dialog className="sm:max-w-[360px]">
+            <Modal.Dialog className="sm:max-w-[400px]">
               <Modal.CloseTrigger />
               <Modal.Header>
-                <Modal.Heading>{paymentMethod ? "ชำระแบบเงินสด" : "ชำระด้วยสแกน"}</Modal.Heading>
+                <Modal.Heading>{paymentMethod ? <div className="text-xl">ชำระแบบเงินสด</div> : "ชำระด้วยสแกน"}</Modal.Heading>
               </Modal.Header>
               <Modal.Body>
-                {paymentMethod ? <form className="grid">
-                 <label htmlFor="text">ยอดรวม : {total | 0 } บาท</label>
-                 <label htmlFor="text">รับเงิน</label>
-                 <input placeholder="จำนวนเงินที่รับ"></input>
-                 <label htmlFor="text">เงินทอน</label>
+                {paymentMethod ? <form className="grid p-2 text-xl">
+                 <label htmlFor="text" className="mb-2">ยอดรวม : {total | 0 } บาท</label>
+                 <div className=" flex">
+                   <label htmlFor="text" className="mb-2">รับเงิน</label>
+                 <input placeholder="จำนวนเงินที่รับ" className=" font-bold ml-2 mb-2 focus:outline-0" onChange={(e)=>handleCaculate(e)} value={ReceiveMoney}></input>
+                 </div>
+                 <label htmlFor="text">เงินทอน : {Change}</label>
+                 <Button
+                  className="w-full mt-4"
+                  variant="secondary"
+                  onClick={Caculate}
+                >
+                 คำนวน
+                </Button>
                 </form> : "รูป QR" }
               </Modal.Body>
               <Modal.Footer>
@@ -62,6 +99,7 @@ function handleAccept(params) {
                   className="w-full"
                   slot="close"
                   variant="danger"
+                  onClick={Cancel}
                 >
                   ยกเลิก
                 </Button>
