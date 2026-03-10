@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Button, Modal } from "@heroui/react";
 export default function ButtonUI({text,style,HandlePayment,total,setPOS,POS},) {
 
@@ -9,7 +9,9 @@ export default function ButtonUI({text,style,HandlePayment,total,setPOS,POS},) {
   const [isOpen, setIsOpen] = useState(false);
   const [ReceiveMoney,setReceiveMoney] = useState(0)
   const [Change,setChange] = useState(0)
-  
+    
+
+ 
 
 
 function handlePay(HandlePayment) {
@@ -31,29 +33,66 @@ function handlePay(HandlePayment) {
 }
 
 function handleAccept(params) {
+ if(Change <= 0){
+  alert("กรุณารับเงินเพื่อชำระสินค้า")
+  setIsOpen(true)
+ return
+ }else{
   setPOS([])
   alert("เสร็จสิน")
   setChange(0)
   setReceiveMoney(0)
+ }
 }
  
 const handleCaculate = (e) => {
   setReceiveMoney(e.target.value)
 }
-function Caculate(params) {
-const result = (Number(ReceiveMoney) - total)
-   if(result >= 0){
-    setChange(result)
-   }else{
-    alert("จำนวนเงินที่รับมาไม่พอ")
-    return
-   }
-
+function HandleInput(e) {
+  if (e.key === "Enter") {
+      const result = Number(ReceiveMoney) - total;
+       if(ReceiveMoney >= 1000){
+        alert("รับแบงค์พัน")
+         e.preventDefault();
+       }
+    if (result >= 0) {
+      if(result === 0){
+       alert("รับมาพอดี")
+      }else{
+      setChange(result);
+      e.preventDefault();
+      }
+    } else {
+      alert("จำนวนเงินที่รับมาไม่พอ");
+      setReceiveMoney(0)
+      setChange(0)
+       e.preventDefault();
+      return;
+    }
+  } 
 }
+function Caculate(params) {
+    const result = Number(ReceiveMoney) - total;
+    if (result >= 0) {
+      setChange(result);
+    } else {
+      alert("จำนวนเงินที่รับมาไม่พอ");
+      setChange(0)
+      return;
+    }
+  } 
+
 function Cancel(params) {
     setChange(0)
   setReceiveMoney(0)
 }
+
+ useEffect(()=>{
+  
+  setChange(0)
+  setReceiveMoney(0)
+
+  },[isOpen])
   return <>
   <Button className={style} onClick={()=>handlePay(HandlePayment)} >{text}</Button>
   <Modal
@@ -74,7 +113,7 @@ function Cancel(params) {
                  <label htmlFor="text" className="mb-2">ยอดรวม : {total | 0 } บาท</label>
                  <div className=" flex">
                    <label htmlFor="text" className="mb-2">รับเงิน</label>
-                 <input placeholder="จำนวนเงินที่รับ" className=" font-bold ml-2 mb-2 focus:outline-0" onChange={(e)=>handleCaculate(e)} value={ReceiveMoney}></input>
+                 <input onKeyDown={HandleInput}  autoFocus placeholder="จำนวนเงินที่รับ" className=" font-bold ml-2 mb-2 focus:outline-0" onChange={(e)=>handleCaculate(e)} value={ReceiveMoney}></input>
                  </div>
                  <label htmlFor="text">เงินทอน : {Change}</label>
                  <Button
