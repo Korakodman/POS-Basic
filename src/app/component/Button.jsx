@@ -32,16 +32,27 @@ function handlePay(HandlePayment) {
   }
 }
 
-function handleAccept(params) {
- if(Change <= 0){
+async function handleAccept(params) {
+ if(Change <= 0 && ReceiveMoney < total){
   alert("กรุณารับเงินเพื่อชำระสินค้า")
   setIsOpen(true)
  return
  }else{
-  setPOS([])
+   const res = await fetch("http://localhost:3000/api/orders", {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({userId:"699c52e1f59a0a3c4829ae8a",items:POS,OptionPayment:"cash"}), //  อย่าลืมแก้ OptionPayment และ userID หลังจากทำระบบ user
+  });
+  if(!res.ok){
+    const err = await res.json()
+   throw new Error(err.message)
+  
+  }
+   setPOS([])
   alert("เสร็จสิน")
   setChange(0)
   setReceiveMoney(0)
+
  }
 }
  
@@ -58,6 +69,8 @@ function HandleInput(e) {
     if (result >= 0) {
       if(result === 0){
        alert("รับมาพอดี")
+       console.log("กด Enter")
+         e.preventDefault();
       }else{
       setChange(result);
       e.preventDefault();
@@ -71,12 +84,18 @@ function HandleInput(e) {
     }
   } 
 }
-function Caculate(params) {
+function Caculate(e) {
     const result = Number(ReceiveMoney) - total;
     if (result >= 0) {
-      setChange(result);
+       if(result === 0){
+       alert("รับมาพอดี")
+       console.log("กดคำนวน")
+      }else{
+      setChange(result)
+      }
     } else {
       alert("จำนวนเงินที่รับมาไม่พอ");
+      e.preventDefault();
       setChange(0)
       return;
     }
@@ -109,7 +128,7 @@ function Cancel(params) {
                 <Modal.Heading>{paymentMethod ? <div className="text-xl">ชำระแบบเงินสด</div> : "ชำระด้วยสแกน"}</Modal.Heading>
               </Modal.Header>
               <Modal.Body>
-                {paymentMethod ? <form className="grid p-2 text-xl">
+                {paymentMethod ? <form className="grid p-2 text-xl" >
                  <label htmlFor="text" className="mb-2">ยอดรวม : {total | 0 } บาท</label>
                  <div className=" flex">
                    <label htmlFor="text" className="mb-2">รับเงิน</label>
@@ -119,9 +138,9 @@ function Cancel(params) {
                  <Button
                   className="w-full mt-4"
                   variant="secondary"
-                  onClick={Caculate}
+                onClick={Caculate}
                 >
-                 คำนวน
+                 คำนวน หรือ กด Enter
                 </Button>
                 </form> : "รูป QR" }
               </Modal.Body>

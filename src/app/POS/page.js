@@ -32,7 +32,7 @@ const { data, loading, error } = useFetchData("http://localhost:3000/api/product
     let result = 0
     for (let i = 0; i < POS.length; i++) {
     const element = POS[i];
-     result += (element.price * element.quality)
+     result += (element.price * element.qty)
   }
   return result
   }
@@ -40,7 +40,8 @@ const { data, loading, error } = useFetchData("http://localhost:3000/api/product
     let result = 0
     for (let i = 0; i < POS.length; i++) {
       const element = POS[i];
-      console.log(result += element.quality)
+      console.log(result += element.qty)
+      console.log(POS)
     }
     return result
   }
@@ -59,18 +60,19 @@ const { data, loading, error } = useFetchData("http://localhost:3000/api/product
   if (found) {
   setPOS((prev) => {
     const exist = prev.find(item => item._id === found._id)
-
+     
     if (exist) {
       // ถ้ามีอยู่แล้ว → เพิ่มจำนวน
+      console.log(POS)
       return prev.map(item =>
         item._id === found._id
-          ? { ...item, quality: item.quality + 1 }
+          ? { ...item, qty: item.qty + 1 }
           : item
       )
     } else {
       // ถ้ายังไม่มี → เพิ่มเข้าไปใหม่
       
-      return [...prev, { ...found, quality: 1 }]
+      return [...prev, { ...found, qty: 1 }]
       
     }
   })

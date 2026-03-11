@@ -4,7 +4,7 @@ import connectDB from "@/app/lib/mongoose";
 import Order from "@/app/Models/Order";
 import Product from "@/app/Models/Product";
 
-//{
+// {
 //     "userId": "1234",
 //     "items" :[{
 //       "productId": "65prod001",
@@ -12,14 +12,25 @@ import Product from "@/app/Models/Product";
 //       "discount": 0
 //     }],
 //     "OptionPayment":"cash"
-// }//
+// }
+export async function GET(req) {
+  await connectDB()
+  try {
+     let order = await Order.find({})
+     return NextResponse.json({order},{status:200})
+  } catch (error) {
+    return NextResponse.json({message:"Error Fetch Order",error},{status:400})
+    
+  }
+}
+
+
+
+
+
 
 export async function POST(req) {
   await connectDB();
-
-  // เริ่มการบันทึกทุกอย่างจากนี้
-  const session = await mongoose.startSession();
-  session.startTransaction();
 
   try {
     let body = await req.json();
@@ -32,7 +43,7 @@ export async function POST(req) {
     let total = 0;
 
     for (const item of items) {
-    const product = await Product.findById(item.productId).session(session)
+    const product = await Product.findById(item._id)
 
     if(!product){
         throw new Error("Product Not Found")
@@ -52,7 +63,7 @@ export async function POST(req) {
         discount: item.discount || 0,
       });
         product.stock -= item.qty;
-      await product.save({ session });
+      await product.save();
     }
 
     const order = await Order.create(
@@ -64,16 +75,12 @@ export async function POST(req) {
           OptionPayment: OptionPayment || "cash",
           status: "PAID",
         },
-      ],
-      { session }
+      ]
     );
-       await session.commitTransaction();
-    session.endSession();
+
 
     return NextResponse.json(order[0], { status: 200 });
   } catch (error) {
-     await session.abortTransaction();
-    session.endSession();
     return NextResponse.json(
       { message: error.message },
       { status: 400 }
