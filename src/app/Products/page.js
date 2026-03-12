@@ -28,7 +28,7 @@ export default function page() {
     const { data, loading, error } = useFetchData("http://localhost:3000/api/products")
    useEffect(()=>{
    setproducts(data)
-
+   console.log(data)
    },[data])
 
 
