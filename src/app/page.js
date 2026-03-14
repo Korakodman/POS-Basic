@@ -5,11 +5,17 @@ import {Person} from "@gravity-ui/icons";
 import CardShow from "./component/CardShow";
 import Table from "./component/Table";
 import useFetchData from "./hooks/useFetchData";
+import { useEffect, useState } from "react";
 export default function Home() {
 
 
     let { data } = useFetchData("http://localhost:3000/api/orders");
-    
+    const [Length,setLength] =  useState(null)
+    useEffect(()=>{
+   if(data){
+    setLength(data.order.length)
+   }
+    })
   return (
     <main className="min-h-screen w-screen  bg-gray-300 font-sans ">
       <header className="flex justify-between p-2 border-4 border-b-white h-20 items-center">
@@ -26,7 +32,7 @@ export default function Home() {
        <section>
          <header className=" flex  px-4 justify-around  mt-10 border-b-4 border-white h-[125px] ">
         <CardShow Title={"ขายได้"} Text={"4,520"+" บาท"} style={""}/>
-        <CardShow Title={"ออเดอร์วันนี้"} Text={data.order.length} style={""}/>
+        <CardShow Title={"ออเดอร์วันนี้"} Text={Length ? Length : "...."} style={""}/>
         <CardShow Title={"สินค้าขายดี"} Text={" 5 items"} style={""}/>
         <CardShow Title={"ลูกค้าใหม่"} Text={"11"} style={""}/>
        </header>
