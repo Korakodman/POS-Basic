@@ -11,11 +11,22 @@ export default function Home() {
 
     let { data } = useFetchData("http://localhost:3000/api/orders");
     const [Length,setLength] =  useState(null)
+    const [item,setitem] = useState([])
     useEffect(()=>{
    if(data){
     setLength(data.order.length)
+    setitem(data.order)
    }
+    },[data])
+   const result = item.map((items)=>{
+      return items.total
     })
+    let total = 0
+   for (let i = 0; i < result.length; i++) {
+    let element = result[i];
+    total += element
+
+   }
   return (
     <main className="min-h-screen w-screen  bg-gray-300 font-sans ">
       <header className="flex justify-between p-2 border-4 border-b-white h-20 items-center">
@@ -31,7 +42,7 @@ export default function Home() {
         </header>
        <section>
          <header className=" flex  px-4 justify-around  mt-10 border-b-4 border-white h-[125px] ">
-        <CardShow Title={"ขายได้"} Text={"4,520"+" บาท"} style={""}/>
+        <CardShow Title={"ขายได้"} Text={total+" บาท"} style={""}/>
         <CardShow Title={"ออเดอร์วันนี้"} Text={Length ? Length : "...."} style={""}/>
         <CardShow Title={"สินค้าขายดี"} Text={" 5 items"} style={""}/>
         <CardShow Title={"ลูกค้าใหม่"} Text={"11"} style={""}/>
