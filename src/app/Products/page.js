@@ -7,6 +7,7 @@ import { Plus } from "@gravity-ui/icons";
 import { Button, Modal } from "@heroui/react";
 import { useFormState } from "react-dom";
 import useFetchData from "../hooks/useFetchData";
+import { PaginationBasic } from "../component/Pagination";
 export default function page() {
 
   const [isOpen, setIsOpen] = useState(false);
@@ -119,11 +120,11 @@ reader.readAsDataURL(file)
           </div>
         </div>
       </header>
-      <section className="border-4 border-b-white h-[800]">
-        <header className="flex justify-center ">
+      <section className="border-4 border-b-white h-[800] flex flex-col">
+        <header className="flex justify-center h-fit">
           <h1 className="text-2xl mt-2 ">รายการสินค้าในคลัง</h1>
         </header>
-        <div className="p-4 grid grid-cols-3 place-items-center">
+        <div className="p-4 grid grid-cols-3 h-[75vh] ">
           {products?.map((item, index) => {
             return (
               <ProductsUI
@@ -142,6 +143,9 @@ reader.readAsDataURL(file)
             );
           })}
         </div>
+         <div className="">
+            <PaginationBasic/>
+         </div>
       </section>
       <Modal
         isOpen={isOpen}
@@ -228,6 +232,9 @@ reader.readAsDataURL(file)
           </Modal.Container>
         </Modal.Backdrop>
       </Modal>
+
+     
+      
     </main>
   );
 }

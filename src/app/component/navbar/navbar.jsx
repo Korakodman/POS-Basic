@@ -26,10 +26,10 @@ function NavbarUI() {
  
              <section>
 <ul className='mt-20'>
-    <li onClick={Home} >Home</li>
-    <li onClick={Order}>Order</li>
-    <li onClick={Products}>Products</li>
-    <li onClick={Settings}>Settings</li>
+    <li className='li-nav' onClick={Home} >Home</li>
+    <li className='li-nav'onClick={Order}>Order</li>
+    <li className='li-nav' onClick={Products}>Products</li>
+    <li className='li-nav'onClick={Settings}>Settings</li>
 </ul>
             </section>
             <section className=' mt-40'>

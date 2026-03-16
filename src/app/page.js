@@ -42,7 +42,7 @@ export default function Home() {
         </header>
        <section>
          <header className=" flex  px-4 justify-around  mt-10 border-b-4 border-white h-[125px] ">
-        <CardShow Title={"ขายได้"} Text={total+" บาท"} style={""}/>
+        <CardShow Title={"ขายได้"} Text={total ? total+" บาท" : "...."} style={""}/>
         <CardShow Title={"ออเดอร์วันนี้"} Text={Length ? Length : "...."} style={""}/>
         <CardShow Title={"สินค้าขายดี"} Text={" 5 items"} style={""}/>
         <CardShow Title={"ลูกค้าใหม่"} Text={"11"} style={""}/>
