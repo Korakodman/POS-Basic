@@ -28,8 +28,9 @@ export default function page() {
 
     const { data, loading, error } = useFetchData("http://localhost:3000/api/products")
    useEffect(()=>{
-   setproducts(data)
-   console.log(data)
+   if(data){
+    setproducts(data)
+   }
    },[data])
 
 
@@ -92,9 +93,11 @@ reader.readAsDataURL(file)
   }
 
 
-
-
-
+  const [page, setPage] = useState(1);
+const itemPerPage = 6
+  const totalPages = Math.ceil(products.length / itemPerPage)
+  const start = (page - 1) * itemPerPage
+  const currentProducts = products.slice(start, start + itemPerPage)
 
   return (
     <main className=" min-h-screen w-screen  bg-gray-300 font-sans">
@@ -124,8 +127,9 @@ reader.readAsDataURL(file)
         <header className="flex justify-center h-fit">
           <h1 className="text-2xl mt-2 ">รายการสินค้าในคลัง</h1>
         </header>
-        <div className="p-4 grid grid-cols-3 h-[75vh] ">
-          {products?.map((item, index) => {
+        <div className="p-4  h-[100vh] ">
+         {loading ? "Loading" : <div className="grid grid-cols-3">
+           {currentProducts?.map((item, index) => {
             return (
               <ProductsUI
                 key={index}
@@ -141,10 +145,10 @@ reader.readAsDataURL(file)
                 setproducts={setproducts}
               />
             );
-          })}
+          })}</div>}
         </div>
          <div className="">
-            <PaginationBasic/>
+            <PaginationBasic  itemPerPage={itemPerPage} totalPages={totalPages} page={page} setPage={setPage}/>
          </div>
       </section>
       <Modal
