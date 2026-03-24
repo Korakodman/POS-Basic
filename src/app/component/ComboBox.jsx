@@ -1,40 +1,37 @@
-import {Label, ListBox, Select} from "@heroui/react";
+import {ComboBox, Input, Label, ListBox} from "@heroui/react";
+import { useState } from "react";
 
-export function ComboBoxUI() {
+export function ComboBoxUI({catalog}) {
+    const [inputValue, setInputValue] = useState("");
   return (
-    <Select className="w-[256px]" placeholder="Select one">
-      <Select.Trigger>
-        <Select.Value />
-        <Select.Indicator />
-      </Select.Trigger>
-      <Select.Popover>
-        <ListBox>
-          <ListBox.Item id="florida" textValue="Florida">
-            Florida
-            <ListBox.ItemIndicator />
-          </ListBox.Item>
-          <ListBox.Item id="delaware" textValue="Delaware">
-            Delaware
-            <ListBox.ItemIndicator />
-          </ListBox.Item>
-          <ListBox.Item id="california" textValue="California">
-            California
-            <ListBox.ItemIndicator />
-          </ListBox.Item>
-          <ListBox.Item id="texas" textValue="Texas">
-            Texas
-            <ListBox.ItemIndicator />
-          </ListBox.Item>
-          <ListBox.Item id="new-york" textValue="New York">
-            New York
-            <ListBox.ItemIndicator />
-          </ListBox.Item>
-          <ListBox.Item id="washington" textValue="Washington">
-            Washington
-            <ListBox.ItemIndicator />
-          </ListBox.Item>
-        </ListBox>
-      </Select.Popover>
-    </Select>
+     <div className="space-y-2">
+      <ComboBox className="w-[256px]" inputValue={inputValue} onInputChange={setInputValue}>
+        <ComboBox.InputGroup>
+          <Input placeholder="ค้นหาประเภทสินค้า...." />
+          <ComboBox.Trigger />
+        </ComboBox.InputGroup>
+        <ComboBox.Popover>
+          <ListBox>
+            <ListBox.Item textValue="ขนม">
+              ขนม
+              <ListBox.ItemIndicator />
+            </ListBox.Item>
+            <ListBox.Item  textValue="เครื่องดืม">
+              เครื่องดืม
+              <ListBox.ItemIndicator />
+            </ListBox.Item>
+            <ListBox.Item  textValue="เครื่องครัว">
+           เครื่องครัว
+              <ListBox.ItemIndicator />
+            </ListBox.Item>
+            <ListBox.Item textValue="อุปกรณ์การเรียน">
+              อุปกรณ์การเรียน
+              <ListBox.ItemIndicator />
+            </ListBox.Item>
+        
+          </ListBox>
+        </ComboBox.Popover>
+      </ComboBox>
+    </div>
   );
 }

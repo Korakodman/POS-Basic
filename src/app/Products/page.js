@@ -92,9 +92,19 @@ reader.readAsDataURL(file)
     }
   }
 
+ const handleSearch = (e) =>{
+  let word = e.target.value
+   if(word){
+    const result = data.filter(item=> item.name.toLowerCase().includes(word.toLowerCase()))
+   setproducts(result)
+   }else{
+    setproducts(data)
+   }
+ }
+
 
   const [page, setPage] = useState(1);
-const itemPerPage = 6
+  const itemPerPage = 6
   const totalPages = Math.ceil(products.length / itemPerPage)
   const start = (page - 1) * itemPerPage
   const currentProducts = products.slice(start, start + itemPerPage)
@@ -109,6 +119,7 @@ const itemPerPage = 6
             id="name"
             placeholder="ค้นหาสินค้าในคลัง"
             type="text"
+            onChange={(e)=>handleSearch(e)}
           />
           <ComboBoxUI />
           <div className="ml-4 font-bold">
