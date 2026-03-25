@@ -1,11 +1,19 @@
 import {ComboBox, Input, Label, ListBox} from "@heroui/react";
 import { useState } from "react";
 
-export function ComboBoxUI({catalog}) {
-    const [inputValue, setInputValue] = useState("");
+export  function ComboBoxUI({data,setproducts}) {
+     const handleCatalog = (e)=>{
+  let word = e
+  if(word){
+    const result = data.filter(item=>item.category.toLowerCase().includes(word.toLowerCase()))
+    setproducts(result)
+  }else{
+    setproducts(data)
+  }
+ }
   return (
      <div className="space-y-2">
-      <ComboBox className="w-[256px]" inputValue={inputValue} onInputChange={setInputValue}>
+      <ComboBox label="aria-label" className="w-[256px]" onInputChange={(e)=>handleCatalog(e)} >
         <ComboBox.InputGroup>
           <Input placeholder="ค้นหาประเภทสินค้า...." />
           <ComboBox.Trigger />

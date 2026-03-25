@@ -102,7 +102,6 @@ reader.readAsDataURL(file)
    }
  }
 
-
   const [page, setPage] = useState(1);
   const itemPerPage = 6
   const totalPages = Math.ceil(products.length / itemPerPage)
@@ -121,7 +120,7 @@ reader.readAsDataURL(file)
             type="text"
             onChange={(e)=>handleSearch(e)}
           />
-          <ComboBoxUI />
+          <ComboBoxUI  data={data} setproducts={setproducts}/>
           <div className="ml-4 font-bold">
             <Button
               variant="secondary"
