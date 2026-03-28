@@ -51,7 +51,8 @@ export default function Home() {
        <section className="border-b-4 mt-2  border-white grid">
         <header className=" p-4 text-3xl font-bold">
           Recent Orders
-       </header><Table/>
+       </header>
+       <Table item={item}/>
       </section>
        <section className="grid border-b-4 border-white h-[250px]">
         <header className="text-3xl p-4 flex font-bold mt-2"><div className=" text-red-500">Alert</div> / <div className="text-orange-500">Notice</div></header>
