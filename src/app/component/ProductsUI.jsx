@@ -96,7 +96,7 @@ export default function ProductsUI({
             <Modal.Dialog className="sm:max-w-[360px]">
               <Modal.CloseTrigger />
               <Modal.Header>
-                <Modal.Heading>แก้ไขรายการหรือไม่?</Modal.Heading>
+                <Modal.Heading>แก้ไขรายการหรือไม่</Modal.Heading>
               </Modal.Header>
               <Modal.Body>
                 <form className="grid" onSubmit={(e) => handleForm(e)}>
@@ -149,6 +149,11 @@ export default function ProductsUI({
                         className=" "
                       />
                     )}
+                  </div>
+                  <div>
+                    <label>
+                      Barcode : {SelectProduct._id}
+                    </label>
                   </div>
                   <Button
                     className="w-full mt-4"

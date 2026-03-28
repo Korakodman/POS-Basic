@@ -9,7 +9,7 @@ export default function ItemList({item,index,onSelect}) {
                 <h1>{index+1}. {item.name}</h1>
                 <div className="flex w-60 p-2 justify-between">
                   <h1>{item.price}</h1>
-                  <h1>{item.quality}</h1>
+                  <h1>{item.qty}</h1>
                 </div>
               </div>
               
