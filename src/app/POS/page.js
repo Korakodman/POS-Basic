@@ -25,23 +25,23 @@ export default function page() {
 
 const { data, loading, error } = useFetchData("http://localhost:3000/api/products")
 
-  const [POS,setPOS] = useState([])
+  const [Cart,setCart] = useState([])
    
  
-  function calculateTotal(POS) {
+  function calculateTotal(Cart) {
     let result = 0
-    for (let i = 0; i < POS.length; i++) {
-    const element = POS[i];
+    for (let i = 0; i < Cart.length; i++) {
+    const element = Cart[i];
      result += (element.price * element.qty)
   }
   return result
   }
-  function calculateItem(POS) {
+  function calculateItem(Cart) {
     let result = 0
-    for (let i = 0; i < POS.length; i++) {
-      const element = POS[i];
+    for (let i = 0; i < Cart.length; i++) {
+      const element = Cart[i];
       console.log(result += element.qty)
-      console.log(POS)
+      console.log(Cart)
     }
     return result
   }
@@ -58,12 +58,12 @@ const { data, loading, error } = useFetchData("http://localhost:3000/api/product
     let found = data.find((prev => prev._id === barcode))
 
   if (found) {
-  setPOS((prev) => {
+  setCart((prev) => {
     const exist = prev.find(item => item._id === found._id)
      
     if (exist) {
       // ถ้ามีอยู่แล้ว → เพิ่มจำนวน
-      console.log(POS)
+      console.log(prev)
       return prev.map(item =>
         item._id === found._id
           ? { ...item, qty: item.qty + 1 }
@@ -81,19 +81,19 @@ const { data, loading, error } = useFetchData("http://localhost:3000/api/product
   setTimeout(() => {
     setalert(false)
   }, 2000);
-    Barcode.current.value = ""
+    Barcode.current.focus()
   return  
 }
  
-  Barcode.current.value = ""
+  Barcode.current.focus()
   }
   }
-let Item =(calculateItem(POS))
-let total = (calculateTotal(POS))
+let Item =(calculateItem(Cart))
+let total = (calculateTotal(Cart))
 
-function DeleteOption(id) {
-  console.log("ลบรายการ",id)
-    setPOS((prev)=>prev.filter((item)=>item.productId !== id))
+function DeleteOption(_id) {
+  console.log("ลบรายการ",_id)
+    setCart((prev)=>prev.filter((item)=>item.productId !== _id))
 }
   return (
     <main className=" min-h-screen w-screen  bg-gray-200 font-sans">
@@ -128,7 +128,7 @@ function DeleteOption(id) {
             </header>
             {/* Item Cart */}
             <section className=" bg-gray-100 p-2 h-[400] overflow-y-auto "  >
-         {POS.map((item,index)=>{
+         {Cart.map((item,index)=>{
                return <ItemList item={item}  index={index} key={index}   onSelect={handleSelect}/>
               })}
 
@@ -141,7 +141,7 @@ function DeleteOption(id) {
             </div>
             <div className="flex p-2 justify-between w-60">
               <h1>|{total} บาท |</h1>
-              <h1>{POS.length} รายการ |</h1>
+              <h1>{Cart.length} รายการ |</h1>
               <h1>{Item} ชิ้น |</h1>
             </div>
           </section>
@@ -154,8 +154,8 @@ function DeleteOption(id) {
               style={"bg-yellow-500 px-20 py-6 text-xl mr-20"}
              HandlePayment={"cash"}
              total={total}
-            setPOS={setPOS}
-            POS={POS}
+            setCart={setCart}
+            Cart={Cart}
             />
           </section>
           <section>
@@ -163,8 +163,8 @@ function DeleteOption(id) {
               text={"Payment"}
               style={"bg-blue-500 px-20 py-6 text-xl"}
           HandlePayment={"payment"}
-          setPOS={setPOS}
-          POS={POS}
+          setCart={setCart}
+          Cart={Cart}
             />
           </section>
         </section>

@@ -23,6 +23,7 @@ export default function page() {
     stock: Number(0),
     category: "",
     image: "",
+ ProductCode: Date.now().toString().slice(-6),
   });
 
 
@@ -55,6 +56,7 @@ export default function page() {
       stock: 0,
       category: "",
       image: "",
+      ProductCode: "",
     });
     setIsOpen(false);
 

@@ -29,6 +29,7 @@ export default function ProductsUI({
       category: category,
       image: image,
       _id: _id,
+      
     });
     console.log(SelectProduct);
   };
