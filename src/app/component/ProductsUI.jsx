@@ -12,6 +12,7 @@ export default function ProductsUI({
   _id,
   item,
   setproducts,
+  ProductCode
 }) {
   const [isOpen, setIsOpen] = useState(false);
 
@@ -20,7 +21,7 @@ export default function ProductsUI({
   function handleModal() {
     setIsOpen(true);
   }
-  const openModal = ({ name, price, stock, category, image, _id }) => {
+  const openModal = ({ name, price, stock, category, image, _id, ProductCode }) => {
     handleModal();
     setSelectProduct({
       name: name,
@@ -29,6 +30,7 @@ export default function ProductsUI({
       category: category,
       image: image,
       _id: _id,
+      ProductCode: ProductCode
       
     });
     console.log(SelectProduct);
@@ -80,7 +82,7 @@ export default function ProductsUI({
       <section
         className="w-[175] "
         onClick={() =>
-          openModal({ name, price, stock, category, image, _id })
+          openModal({ name, price, stock, category, image, _id, ProductCode })
         }
       >
         <img src={image} alt="preview"></img>
@@ -153,7 +155,7 @@ export default function ProductsUI({
                   </div>
                   <div>
                     <label>
-                      Barcode : {SelectProduct._id}
+                      Barcode : {SelectProduct.ProductCode}
                     </label>
                   </div>
                   <Button

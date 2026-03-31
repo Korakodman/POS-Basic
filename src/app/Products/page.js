@@ -21,9 +21,9 @@ export default function page() {
     name: "",
     price: Number(0),
     stock: Number(0),
-    category: "",
+    category: "", 
     image: "",
- ProductCode: Date.now().toString().slice(-6),
+    ProductCode: Date.now().toString().slice(-6),
   });
 
 
@@ -154,6 +154,7 @@ reader.readAsDataURL(file)
                 setPreview={setPreview}
                 _id={item._id}
                 item={item}
+                ProductCode={item.ProductCode}
                 setproducts={setproducts}
               />
             );

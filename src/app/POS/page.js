@@ -55,17 +55,17 @@ const { data, loading, error } = useFetchData("http://localhost:3000/api/product
     // บาร์โค้ด
      const barcode = Barcode.current.value
      // ถ้าเจอสินค้า 
-    let found = data.find((prev => prev._id === barcode))
+    let found = data.find((prev => prev.ProductCode === barcode))
 
   if (found) {
   setCart((prev) => {
-    const exist = prev.find(item => item._id === found._id)
+    const exist = prev.find(item => item.ProductCode === found.ProductCode)
      
     if (exist) {
       // ถ้ามีอยู่แล้ว → เพิ่มจำนวน
       console.log(prev)
       return prev.map(item =>
-        item._id === found._id
+        item.ProductCode === found.ProductCode
           ? { ...item, qty: item.qty + 1 }
           : item
       )
@@ -81,19 +81,20 @@ const { data, loading, error } = useFetchData("http://localhost:3000/api/product
   setTimeout(() => {
     setalert(false)
   }, 2000);
+    Barcode.current.value = ""
     Barcode.current.focus()
   return  
 }
- 
+Barcode.current.value = ""
   Barcode.current.focus()
   }
   }
 let Item =(calculateItem(Cart))
 let total = (calculateTotal(Cart))
 
-function DeleteOption(_id) {
-  console.log("ลบรายการ",_id)
-    setCart((prev)=>prev.filter((item)=>item.productId !== _id))
+function DeleteOption(ProductCode) {
+  console.log("ลบรายการ",ProductCode)
+    setCart((prev)=>prev.filter((item)=>item.ProductCode !== ProductCode))
 }
   return (
     <main className=" min-h-screen w-screen  bg-gray-200 font-sans">
