@@ -33,7 +33,6 @@ export default function ProductsUI({
       ProductCode: ProductCode
       
     });
-    console.log(SelectProduct);
   };
   function handleInput(e) {
     const { name, value } = e.target;
@@ -66,7 +65,7 @@ export default function ProductsUI({
       reader.onloadend = () => {
         setSelectProduct((prev) => ({
           ...prev,
-          image: reader.result, // base64 string
+          image: reader.result, 
         }));
       };
       reader.readAsDataURL(file);

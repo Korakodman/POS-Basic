@@ -40,8 +40,6 @@ const { data, loading, error } = useFetchData("http://localhost:3000/api/product
     let result = 0
     for (let i = 0; i < Cart.length; i++) {
       const element = Cart[i];
-      console.log(result += element.qty)
-      console.log(Cart)
     }
     return result
   }

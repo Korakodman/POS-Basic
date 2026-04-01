@@ -3,21 +3,24 @@ import React from 'react'
 import { useRouter } from 'next/navigation'
 function NavbarUI() {
     let route = useRouter()
-    function Home(num) {
+    function Home() {
    route.push("/")
     }
 
-      function Order(num) {
+      function Order() {
    route.push("/Order")
     }
-      function Products(num) {
+      function Products() {
    route.push("/Products")
     }
-      function Settings(num) {
+      function Settings() {
    route.push("/Settings")
     }
-    function POS(num) {
+    function POS() {
    route.push("/POS")
+    }
+    function Users() {
+   route.push("/User")
     }
   return (
          <nav className=' bg-gray-300 p-4 grid w-[250px] justify-center text-center border-r-4 border-white'>
@@ -29,6 +32,7 @@ function NavbarUI() {
     <li className='li-nav' onClick={Home} >Home</li>
     <li className='li-nav'onClick={Order}>Order</li>
     <li className='li-nav' onClick={Products}>Products</li>
+      <li className='li-nav' onClick={Users}>Users</li>
     <li className='li-nav'onClick={Settings}>Settings</li>
 </ul>
             </section>
