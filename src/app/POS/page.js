@@ -91,7 +91,6 @@ let Item =(calculateItem(Cart))
 let total = (calculateTotal(Cart))
 
 function DeleteOption(ProductCode) {
-  console.log("ลบรายการ",ProductCode)
     setCart((prev)=>prev.filter((item)=>item.ProductCode !== ProductCode))
 }
   return (
