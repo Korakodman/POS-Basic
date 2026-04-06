@@ -102,7 +102,7 @@ export default function ProductsUI({
               </Modal.Header>
               <Modal.Body>
                 <form className="grid" onSubmit={(e) => handleForm(e)}>
-                  <label aria-label="text">ชื่อสินค้า</label>
+                  <label htmlFor="text">ชื่อสินค้า</label>
                   <input
                     className="border-2 border-gray-200 rounded-md mt-2 p-2"
                     name="name"
@@ -110,7 +110,7 @@ export default function ProductsUI({
                     required
                     value={SelectProduct.name}
                   ></input>
-                  <label aria-label="text">ราคา</label>
+                  <label htmlFor="text">ราคา</label>
                   <input
                     className="border-2 border-gray-200 rounded-md mt-2 p-2"
                     name="price"
@@ -118,7 +118,7 @@ export default function ProductsUI({
                     required
                     value={SelectProduct.price}
                   ></input>
-                  <label aria-label="text">จำนวนที่รับ</label>
+                  <label htmlFor="text">จำนวนที่รับ</label>
                   <input
                     className="border-2 border-gray-200 rounded-md mt-2 p-2"
                     name="stock"
@@ -126,7 +126,7 @@ export default function ProductsUI({
                     required
                     value={SelectProduct.stock}
                   ></input>
-                  <label aria-label="text">ประเภท</label>
+                  <label htmlFor="text">ประเภท</label>
                   <input
                     className="border-2 border-gray-200 rounded-md mt-2 p-2 "
                     name="category"
@@ -134,7 +134,7 @@ export default function ProductsUI({
                     required
                     value={SelectProduct.category}
                   ></input>
-                  <label aria-label="text">รูปสินค้า</label>
+                  <label htmlFor="text">รูปสินค้า</label>
                   <input
                     className="border-2 border-gray-200 rounded-md mt-2 p-1"
                     type="file"

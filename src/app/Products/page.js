@@ -120,6 +120,7 @@ reader.readAsDataURL(file)
             placeholder="ค้นหาสินค้าในคลัง"
             type="text"
             onChange={(e)=>handleSearch(e)}
+          
           />
           <ComboBoxUI  data={data} setproducts={setproducts}/>
           <div className="ml-4 font-bold">
@@ -182,42 +183,51 @@ reader.readAsDataURL(file)
               </Modal.Header>
               <Modal.Body>
                 <form className="grid" onSubmit={(e)=>handleForm(e)}>
-                  <label aria-label="text">ชื่อสินค้า</label>
-                  <input
-                    className="border-2 border-gray-200 rounded-md mt-2 p-2"
-                    name="name"
-                    onChange={(e) => handleInput(e)}
-                    required
-                  ></input>
-                  <label aria-label="text" >ราคา</label>
-                  <input
-                    className="border-2 border-gray-200 rounded-md mt-2 p-2"
-                    name="price"
-                    onChange={(e) => handleInput(e)}
-                    required
-                  ></input>
-                  <label aria-label="text">จำนวนที่รับ</label>
-                  <input
-                    className="border-2 border-gray-200 rounded-md mt-2 p-2"
-                    name="stock"
-                    onChange={(e) => handleInput(e)}
-                    required
-                  ></input>
-                  <label aria-label="text">ประเภท</label>
-                  <input
-                    className="border-2 border-gray-200 rounded-md mt-2 p-2 "
-                    name="category"
-                    onChange={(e) => handleInput(e)}
-                    required
-                  ></input>
-                  <label aria-label="text">รูปสินค้า</label>
-                  <input
-                    className="border-2 border-gray-200 rounded-md mt-2 p-1"
-                    type="file"
-                    name="image"
-                    onChange={handleImageChange}
-                    required
-                  ></input>
+                   <label htmlFor="name">ชื่อสินค้า</label>
+  <input
+    id="name"
+    className="border-2 border-gray-200 rounded-md mt-2 p-2"
+    name="name"
+    onChange={(e) => handleInput(e)}
+    required
+  />
+
+  <label htmlFor="price">ราคา</label>
+  <input
+    id="price"
+    className="border-2 border-gray-200 rounded-md mt-2 p-2"
+    name="price"
+    onChange={(e) => handleInput(e)}
+    required
+  />
+
+  <label htmlFor="stock">จำนวนที่รับ</label>
+  <input
+    id="stock"
+    className="border-2 border-gray-200 rounded-md mt-2 p-2"
+    name="stock"
+    onChange={(e) => handleInput(e)}
+    required
+  />
+
+  <label htmlFor="category">ประเภท</label>
+  <input
+    id="category"
+    className="border-2 border-gray-200 rounded-md mt-2 p-2"
+    name="category"
+    onChange={(e) => handleInput(e)}
+    required
+  />
+
+  <label htmlFor="image">รูปสินค้า</label>
+  <input
+    id="image"
+    className="border-2 border-gray-200 rounded-md mt-2 p-1"
+    type="file"
+    name="image"
+    onChange={handleImageChange}
+    required
+  />
                   <div className="flex justify-center">
                     {preview && (
                       // eslint-disable-next-line @next/next/no-img-element
