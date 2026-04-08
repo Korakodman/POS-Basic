@@ -6,9 +6,19 @@ export default function ModalUser({modal}) {
 
     const {handleInput,isOpen,setIsOpen,user,Edit} = modal
 
-  const handleFormSubmit = (e)=>{
-    e.preventDefault()
-    console.log(Edit)
+ async function handleFormSubmit  (e){
+  try {
+      const res = await fetch(
+        `http://localhost:3000/api/GetUser/${Edit._id}`,
+        {
+          method: "PUT",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify(Edit),
+        },
+      );
+    } catch (error) {
+      console.log("Something Error ", error);
+    }
   }
 
   return (
