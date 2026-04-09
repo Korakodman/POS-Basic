@@ -13,7 +13,16 @@ export async function POST(req) {
         if(!user || user.password != password ){
             return NextResponse.json({message:"รหัสหรือผู้ใช้ไม่ถูกต้อง"},{status:401})
         } 
-        return NextResponse.json({message:"LoginSuccess"},{status:200})
+        if(user){
+            const respone = NextResponse.json({message:"LoginSuccess"},{status:200})
+            respone.cookies.set("token","Login",{
+                httpOnly:true,
+                secure:process.env.NODE_ENV === "production",
+                path:"/",
+                maxAge: 60*60*24,
+            })
+            return respone
+        }
     } catch (error) {
         return NextResponse.json("a Error is : ",error,{status:400})
     }

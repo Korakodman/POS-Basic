@@ -7,6 +7,7 @@ export default function ModalUser({modal}) {
     const {handleInput,isOpen,setIsOpen,user,Edit} = modal
 
  async function handleFormSubmit  (e){
+  e.preventDefault()
   try {
       const res = await fetch(
         `http://localhost:3000/api/GetUser/${Edit._id}`,
@@ -16,6 +17,8 @@ export default function ModalUser({modal}) {
           body: JSON.stringify(Edit),
         },
       );
+      setIsOpen(false)
+      window.location.reload()
     } catch (error) {
       console.log("Something Error ", error);
     }

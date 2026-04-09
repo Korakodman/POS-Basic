@@ -2,7 +2,7 @@
 
 import { useEffect, useState } from "react";
 import { Button, Modal } from "@heroui/react";
-export default function ButtonUI({text,style,HandlePayment,total,setPOS,POS},) {
+export default function ButtonUI({text,style,HandlePayment,total,setCart,Cart},) {
 
 
   const [paymentMethod, setPaymentMethod] = useState(null)
@@ -16,14 +16,14 @@ export default function ButtonUI({text,style,HandlePayment,total,setPOS,POS},) {
 
 function handlePay(HandlePayment) {
   if (HandlePayment == "cash") {
-      if(POS.length === 0){
+      if(Cart.length === 0){
         alert("ไม่พบสินค้าที่ต้องการชำระ")
       }else{
         setPaymentMethod(true)
        setIsOpen(true)
       }
   } else {
-      if(POS.length === 0){
+      if(Cart.length === 0){
         alert("ไม่พบสินค้าที่ต้องการชำระ")
       }else{
         setPaymentMethod(false)
@@ -41,14 +41,14 @@ async function handleAccept(params) {
    const res = await fetch("http://localhost:3000/api/orders", {
     method: "POST",
     headers: { "Content-Type": "application/json" },
-    body: JSON.stringify({userId:"699c52e1f59a0a3c4829ae8a",items:POS,OptionPayment:"cash"}), //  อย่าลืมแก้ OptionPayment และ userID หลังจากทำระบบ user
+    body: JSON.stringify({userId:"699c52e1f59a0a3c4829ae8a",items:Cart,OptionPayment:"cash"}), //  อย่าลืมแก้ OptionPayment และ userID หลังจากทำระบบ user
   });
   if(!res.ok){
     const err = await res.json()
    throw new Error(err.message)
   
   }
-   setPOS([])
+   setCart([])
   alert("เสร็จสิน")
   setChange(0)
   setReceiveMoney(0)
