@@ -1,7 +1,7 @@
 import connectDB from "@/app/lib/mongoose";
 import { NextResponse } from "next/server";
 import User from "@/app/Models/User";
-
+import bcrypt from "bcryptjs"
 
 export async function POST(req) {
     await connectDB()
@@ -15,8 +15,11 @@ try {
     if(password != repeatPassword){
         return NextResponse.json({message:"รหัสไม่ตรงกัน"},{status:409})
     }
-    let newUser = new User({username,password})
-    console.log(newUser)
+    const hashedPassword = await bcrypt.hash(password, 10)
+let newUser = new User({
+  username,
+  password: hashedPassword
+})
      await newUser.save()
     return NextResponse.json(
     

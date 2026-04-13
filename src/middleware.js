@@ -12,18 +12,15 @@ export function middleware(request) {
     return NextResponse.redirect(new URL("/login", request.url));
   }
 
+     if (token && pathname === "/login") {
+    return NextResponse.redirect(new URL("/", request.url))
+  }
+
   return NextResponse.next();
 }
 
 export const config = {
   matcher: [
-    /*
-     * ทำงานทุก path ยกเว้น:
-     * - api
-     * - _next/static
-     * - _next/image
-     * - favicon
-     */
     "/((?!api|_next/static|_next/image|favicon.ico).*)",
   ],
 };

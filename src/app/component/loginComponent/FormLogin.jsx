@@ -25,6 +25,7 @@ export function FormLogin() {
       .then(function(res){
         console.log(res.data.message)
         Route.push("/")
+        Route.refresh()
         setmsError("")
       })
       .catch(function(error){

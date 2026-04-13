@@ -9,7 +9,6 @@ import { useEffect, useState } from "react";
 import { CustomSpinner } from "./component/Spiner";
 export default function Home() {
 
-
     let { data } = useFetchData("http://localhost:3000/api/orders");
     const [Length,setLength] =  useState(null)
     const [item,setitem] = useState([])
