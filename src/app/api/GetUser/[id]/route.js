@@ -26,3 +26,25 @@ export async function PUT(req,{params}) {
   }
   
 }
+
+export async function DELETE(req,{params}) {
+   await connectDB()
+  try {
+    const {id} =  await params
+  
+    if(!id){
+      throw new Error("Not Found ID try Again");
+    }
+
+
+   await User.findByIdAndDelete(id)
+
+    return NextResponse.json({message:"Delete Successfully"})
+  } catch (error) {
+    if(error){
+      console.log("error",error)
+    return NextResponse.json({message:"Error Edit",},{status:400})
+    }
+  }
+  
+}

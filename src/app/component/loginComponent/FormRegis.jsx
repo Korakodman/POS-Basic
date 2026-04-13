@@ -28,10 +28,9 @@ export function FormRegis() {
    function RegisterUser(params) {
      axios.post("http://localhost:3000/api/Register",data)
     .then(function (res) {
-      console.log(res.data.message)
       setTimeout(() => {
-        Route.push("/")
-      }, 3000);
+        Route.push("/login")
+      }, 2000);
     })
     .catch(function(error){
        setmsError(error.response.data.message)

@@ -23,9 +23,10 @@ export function FormLogin() {
      function LoginUser(params) {
       axios.post("http://localhost:3000/api/Login",data)
       .then(function(res){
-        console.log(res.data.message)
+       setTimeout(() => {
         Route.push("/")
         Route.refresh()
+      }, 2000);
         setmsError("")
       })
       .catch(function(error){

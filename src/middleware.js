@@ -15,6 +15,10 @@ export function middleware(request) {
      if (token && pathname === "/login") {
     return NextResponse.redirect(new URL("/", request.url))
   }
+  
+  if (token && pathname === "/register") {
+    return NextResponse.redirect(new URL("/", request.url))
+  }
 
   return NextResponse.next();
 }
