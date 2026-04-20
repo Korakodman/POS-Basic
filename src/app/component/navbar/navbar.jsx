@@ -1,6 +1,7 @@
 "use client"
 import React from 'react'
 import { useRouter } from 'next/navigation'
+import axios from 'axios'
 function NavbarUI() {
     let route = useRouter()
     function Home() {
@@ -22,6 +23,20 @@ function NavbarUI() {
     function Users() {
    route.push("/User")
     }
+
+  
+async function LogoutHandle(params) {
+  axios.get("http://localhost:3000/api/Logout")
+  .then(function(respone){
+    setTimeout(() => {
+      route.refresh()
+    }, 1000);
+  })
+  .catch(function(error){
+    console.log(error)
+  })
+}
+
   return (
          <nav className=' bg-gray-300 p-4 grid w-[250px] justify-center text-center border-r-4 border-white'>
           
@@ -37,7 +52,7 @@ function NavbarUI() {
 </ul>
             </section>
             <section className=' mt-40'>
-                <h1 className='font-bold bg-red-500 px-2 py-2 hover:cursor-pointer hover:bg-red-400 text-white'>Logout</h1>
+                <h1 className='font-bold bg-red-500 px-2 py-2 hover:cursor-pointer hover:bg-red-400 text-white'onClick={LogoutHandle}>Logout</h1>
                 </section>
 
          </nav>
