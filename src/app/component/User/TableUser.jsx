@@ -24,7 +24,6 @@ const Modal = {HandleEdit,handleInput,setuser,user,isOpen,setIsOpen,Edit}
         <Table.Content aria-label="Team members" className="min-w-[600px] ">
           <Table.Header className="">
             <Table.Column isRowHeader>ชื่อ</Table.Column>
-            <Table.Column>รหัสผ่าน</Table.Column>
             <Table.Column>สิทธิ</Table.Column>
             <Table.Column>แก้ไข</Table.Column>
           </Table.Header>
@@ -32,7 +31,6 @@ const Modal = {HandleEdit,handleInput,setuser,user,isOpen,setIsOpen,Edit}
            {dataUser.map((user,index)=>[
              <Table.Row key={user._id}>
           <Table.Cell>{user.username}</Table.Cell>
-              <Table.Cell>{user.password}</Table.Cell>
               <Table.Cell>{user.role}</Table.Cell>
               <Table.Cell><Button onClick={()=>HandleEdit(user)}>แก้ไข</Button></Table.Cell>
             </Table.Row>

@@ -6,6 +6,7 @@ import NavbarUI from "./component/navbar/navbar";
 export default async function RootLayout({ children }) {
   const cookieStore = await cookies() 
   const token = cookieStore.get("token")?.value
+ 
 
   let user = null
   try {
@@ -17,7 +18,7 @@ export default async function RootLayout({ children }) {
   return (
     <html lang="en">
       <body className="flex">
-        {user && <NavbarUI />}
+        {user && <NavbarUI user={user}/>}
         {children}
       </body>
     </html>

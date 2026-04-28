@@ -2,7 +2,8 @@
 import React from 'react'
 import { useRouter } from 'next/navigation'
 import axios from 'axios'
-function NavbarUI() {
+import { AvatarUI } from '../Layout/AvatarUI'
+function NavbarUI({user}) {
     let route = useRouter()
     function Home() {
    route.push("/")
@@ -36,7 +37,7 @@ async function LogoutHandle(params) {
     console.log(error)
   })
 }
-
+console.log(user)
   return (
          <nav className=' bg-gray-300 p-4 grid w-[250px] justify-center text-center border-r-4 border-white'>
           
@@ -52,6 +53,9 @@ async function LogoutHandle(params) {
 </ul>
             </section>
             <section className=' mt-40'>
+              <div className=''>
+                <AvatarUI/>
+              </div>
                 <h1 className='font-bold bg-red-500 px-2 py-2 hover:cursor-pointer hover:bg-red-400 text-white'onClick={LogoutHandle}>Logout</h1>
                 </section>
 
