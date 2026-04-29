@@ -30,15 +30,7 @@ export default function Home() {
   return (
     <main className="min-h-screen w-screen  bg-gray-300 font-sans ">
       <header className="flex justify-between p-2 border-4 border-b-white h-20 items-center">
-      <div></div>
-      <div className="flex ">
-           <Avatar>
-        <Avatar.Fallback>
-          <Person />
-        </Avatar.Fallback>
-      </Avatar>
-        <h1 className="text-center p-2">Username: Korakod</h1>
-        </div>
+  
         </header>
        <section>
          <header className=" flex  px-4 justify-around  mt-10 border-b-4 border-white h-[125px] ">

@@ -48,15 +48,13 @@ console.log(user)
     <li className='li-nav' onClick={Home} >Home</li>
     <li className='li-nav'onClick={Order}>Order</li>
     <li className='li-nav' onClick={Products}>Products</li>
-      <li className='li-nav' onClick={Users}>Users</li>
+     {user.role == "Admin" ?  <li className='li-nav' onClick={Users}>Users</li> : ""}
     <li className='li-nav'onClick={Settings}>Settings</li>
 </ul>
             </section>
-            <section className=' mt-40'>
-              <div className=''>
-                <AvatarUI/>
-              </div>
-                <h1 className='font-bold bg-red-500 px-2 py-2 hover:cursor-pointer hover:bg-red-400 text-white'onClick={LogoutHandle}>Logout</h1>
+            <section className=' mt-36'>
+                <AvatarUI user={user}/>
+                <h1 className='font-bold bg-red-500 px-2 py-2 hover:cursor-pointer  hover:bg-red-400 text-white'onClick={LogoutHandle}>Logout</h1>
                 </section>
 
          </nav>
