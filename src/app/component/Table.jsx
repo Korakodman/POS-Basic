@@ -21,7 +21,7 @@ export default function Table({item}) {
          {item ? item.map((i)=>(
             <tr key={i._id} className="py-4">
               <td className=" py-4  text-center  p-4">{i._id}</td>
-            <td className=" py-4  text-center  p-4">{"$ " + i.total }</td>
+            <td className=" py-4  text-center  p-4">{i.total + " บาท" }</td>
             <td className=" py-4  text-center  p-4">{i.status}</td>
             <td className=" py-4  text-center  p-4">Click More Detail</td>
             </tr>

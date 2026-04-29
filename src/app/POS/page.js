@@ -60,7 +60,6 @@ const { data, loading, error } = useFetchData("http://localhost:3000/api/product
     const exist = prev.find(item => item.ProductCode === found.ProductCode)
      
     if (exist) {
-      // ถ้ามีอยู่แล้ว → เพิ่มจำนวน
       console.log(prev)
       return prev.map(item =>
         item.ProductCode === found.ProductCode
@@ -68,7 +67,6 @@ const { data, loading, error } = useFetchData("http://localhost:3000/api/product
           : item
       )
     } else {
-      // ถ้ายังไม่มี → เพิ่มเข้าไปใหม่
       
       return [...prev, { ...found, qty: 1 }]
       
