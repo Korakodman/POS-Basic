@@ -2,6 +2,7 @@
 
 import { useEffect, useState } from "react";
 import { Button, Modal } from "@heroui/react";
+import axios from "axios";
 export default function ButtonUI({text,style,HandlePayment,total,setCart,Cart},) {
 
 
@@ -9,9 +10,18 @@ export default function ButtonUI({text,style,HandlePayment,total,setCart,Cart},)
   const [isOpen, setIsOpen] = useState(false);
   const [ReceiveMoney,setReceiveMoney] = useState(0)
   const [Change,setChange] = useState(0)
-    
+  const [User,SetUser] = useState()
 
- 
+    
+  useEffect(()=>{
+    axios.get("http://localhost:3000/api/me")
+    .then(response=>{
+    SetUser(response.data.user)
+    })
+    .catch(error=>{
+      console.log(error)
+    })
+  },[])
 
 
 function handlePay(HandlePayment) {
@@ -41,7 +51,7 @@ async function handleAccept(params) {
    const res = await fetch("http://localhost:3000/api/orders", {
     method: "POST",
     headers: { "Content-Type": "application/json" },
-    body: JSON.stringify({userId:"699c52e1f59a0a3c4829ae8a",items:Cart,OptionPayment:"cash"}), //  อย่าลืมแก้ OptionPayment และ userID หลังจากทำระบบ user
+    body: JSON.stringify({userId:User.id,items:Cart,OptionPayment:"cash"}), //  อย่าลืมแก้ OptionPayment และ userID หลังจากทำระบบ user
   });
   if(!res.ok){
     const err = await res.json()

@@ -37,7 +37,6 @@ async function LogoutHandle(params) {
     console.log(error)
   })
 }
-console.log(user)
   return (
          <nav className=' bg-gray-300 p-4 grid w-[250px] justify-center text-center border-r-4 border-white'>
           
