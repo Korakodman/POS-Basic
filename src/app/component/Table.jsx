@@ -1,6 +1,8 @@
 import React from "react";
 
 export default function Table({item}) {
+
+  
   return (
     <div className="relative overflow-hidden shadow-md rounded-lg mx-4 mb-4">
       <table className="table-fixed w-full text-left">
@@ -9,10 +11,11 @@ export default function Table({item}) {
         
         >
           <tr>
-            <td className="py-3  text-center  p-4">Order ID</td>
-            <td className="py-3  text-center  p-4">Total   </td>
-            <td className="py-3  text-center  p-4">Status</td>
-            <td className="py-3  text-center  p-4">Detail</td>
+            <td className="py-3  text-center  p-4">รหัสใบเสร็จ</td>
+            <td className="py-3  text-center  p-4">จำนวนเงิน</td>
+            <td className="py-3  text-center  p-4">สถานะ</td>
+            <td className="py-3  text-center  p-4">วันที่</td>
+            <td className="py-3  text-center  p-4">รายระเอียด</td>
           </tr>
         </thead>
         <tbody
@@ -23,6 +26,7 @@ export default function Table({item}) {
               <td className=" py-4  text-center  p-4">{i._id}</td>
             <td className=" py-4  text-center  p-4">{i.total + " บาท" }</td>
             <td className=" py-4  text-center  p-4">{i.status}</td>
+            <td className="py-3  text-center  p-4">{new Date(i.createdAt).toLocaleDateString('th-TH')}</td>
             <td className=" py-4  text-center  p-4">Click More Detail</td>
             </tr>
            ))

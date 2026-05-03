@@ -16,6 +16,7 @@ export default function Home() {
    if(data){
     setLength(data.order.length)
     setitem(data.order)
+  
    }
     },[data])
    const result = item.map((items)=>{
