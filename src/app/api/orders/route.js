@@ -73,7 +73,7 @@ export async function POST(req) {
           items: orderItem,
           total,
           OptionPayment: OptionPayment || "cash",
-          status: "PAID",
+          status: "ชำระแล้ว",
         },
       ]
     );

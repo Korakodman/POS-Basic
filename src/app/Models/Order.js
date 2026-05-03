@@ -51,8 +51,8 @@ const orderSchema = new mongoose.Schema(
 
     status: {
       type: String,
-      enum: ["PAID", "CANCELLED"],
-      default: "PAID",
+      enum: ["ชำระแล้ว", "CANCELLED"],
+      default: "ชำระแล้ว",
     },
   },
   { timestamps: true }
