@@ -41,7 +41,7 @@ export default function Home() {
         <CardShow Title={"ลูกค้าใหม่"} Text={"11"} style={""}/>
        </header>
        </section>
-       <section className="border-b-4 mt-2  border-white grid ">
+       <section className="border-b-4   border-white grid ">
         <header className=" p-4 text-3xl font-bold">
           Recent Orders
        </header>

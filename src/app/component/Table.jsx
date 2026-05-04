@@ -19,7 +19,7 @@ export default function TableUI({ item }) {
   const end = Math.min(page * ROWS_PER_PAGE, item.length);
 
   return (
-    <Table className="w-full mb-4">
+    <Table className="w-full ">
       <Table.ScrollContainer>
         <Table.Content className="min-w-[400px] p-2">
 

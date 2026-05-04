@@ -1,7 +1,30 @@
-import React from 'react'
-
-export default function page() {
+"use client"
+import SettingsLayout from "../component/settings/SettingsLayout";
+import ProfileSection from "@/app/component/settings/ProfileSection";
+import ShopSection from "../component/settings/ShopSection";
+import SecuritySection from "../component/settings/SecuritySection";
+import axios from "axios";
+import { useEffect, useState } from "react";
+import SectionCard from "../component/settings/SectionCard";
+export default function Page() {
+  const [user,Setuser] = useState(null)
+ useEffect(()=>{
+  axios.get("http://localhost:3000/api/me")
+  .then(respone=>{
+    Setuser(respone.data.user)
+  }).catch(error=>{
+    console.log(error)
+  })
+ },[])
+ console.log(user)
   return (
-    <div className='flex min-h-screen w-screen items-center justify-center bg-gray-500 font-sans'>Settings</div>
-  )
+    <SettingsLayout>
+      <ProfileSection user={user} />
+      <ShopSection />
+      <SectionCard title={"test"}>
+        test
+      </SectionCard>
+      <SecuritySection />
+    </SettingsLayout>
+  );
 }
