@@ -16,7 +16,6 @@ export default function Page() {
     console.log(error)
   })
  },[])
- console.log(user)
   return (
     <SettingsLayout>
       <ProfileSection user={user} />
@@ -24,7 +23,7 @@ export default function Page() {
       <SectionCard title={"test"}>
         test
       </SectionCard>
-      <SecuritySection />
+      {user?.role != "Admin" ? "" : <SecuritySection />}
     </SettingsLayout>
   );
 }
