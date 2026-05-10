@@ -6,12 +6,11 @@ export default function ProfileSection({ user }) {
   function handdleChangePassword(){
     
   }
-
   return (
     <SectionCard title="Profile">
       <p>Username: <b>{user?.username}</b></p>
       <p>Role: <b>{user?.role}</b></p>
-    <ModalChangePassword/>
+    <ModalChangePassword user={user}/>
     </SectionCard>
   );
 }

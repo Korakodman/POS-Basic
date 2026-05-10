@@ -6,7 +6,7 @@ import {Modal} from "@heroui/react";
 import ModalUser from "./ModalUser";
 export function TableUser({TableOption}) {
 
-const {data,loading,error} = useFetchData("http://localhost:3000/api/GetUser")
+const {data,loading,error} = useFetchData("http://localhost:3000/api/admin/GetUser")
 const [dataUser,SetdataUser] = useState([])
 useEffect(()=>{
   if(data){

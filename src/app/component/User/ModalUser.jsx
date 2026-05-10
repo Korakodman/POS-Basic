@@ -10,7 +10,7 @@ export default function ModalUser({modal}) {
   e.preventDefault()
   try {
       const res = await fetch(
-        `http://localhost:3000/api/GetUser/${Edit._id}`,
+        `http://localhost:3000/api/admin/GetUser/${Edit._id}`,
         {
           method: "PUT",
           headers: { "Content-Type": "application/json" },

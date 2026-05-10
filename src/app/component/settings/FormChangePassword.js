@@ -2,8 +2,9 @@
 
 import {Check} from "@gravity-ui/icons";
 import {Button, Description, FieldError, Form, Input, Label, TextField} from "@heroui/react";
+import axios from "axios";
 
-export function FormChangePassword() {
+export function FormChangePassword({user}) {
   const onSubmit = (e) => {
     e.preventDefault();
     const formData = new FormData(e.currentTarget);
@@ -20,27 +21,47 @@ export function FormChangePassword() {
     // console.log(data.password)
  if(data.password !== data.RepeatPassword){
         alert("รหัสไม่ตรงกัน")
+        return
      }
      
-    alert(`Form submitted with: ${JSON.stringify(data, null, 2)}`);
+   axios.put(`http://localhost:3000/api/user/change-password/${user.id}`,{
+    username:user.username,
+    oldpassword:data.old_password,
+    Newpassword:data.password,
+    RepeatPassword:data.RepeatPassword
+   }).then(Response=>{
+    console.log(Response.data)
+   }).catch(error=>{
+    console.log(error)
+   })
   };
 
   return (
     <Form className="flex w-96 flex-col gap-4 ml-4" onSubmit={onSubmit}>
+
+       <TextField
+        isRequired
+        name="old_password"
+        type="password"
+      
+      >
+        <Label>Your old Password</Label>
+        <Input placeholder="Password" />
+        <FieldError />
+      </TextField>
       <TextField
         isRequired
         name="password"
         type="password"
       
       >
-        <Label>Your Password</Label>
+        <Label>Your old Password</Label>
         <Input placeholder="Password" />
         <FieldError />
       </TextField>
 
       <TextField
         isRequired
-        minLength={8}
         name="RepeatPassword"
         type="password"
       >

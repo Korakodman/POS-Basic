@@ -4,7 +4,7 @@ import {Rocket} from "@gravity-ui/icons";
 import {Button, Modal} from "@heroui/react";
 import { FormChangePassword } from "./FormChangePassword";
 
-export function ModalChangePassword() {
+export function ModalChangePassword({user}) {
   return (
     <Modal>
       <Button className="mt-4 bg-blue-500 text-white px-4 py-2 rounded-lg">Change Password</Button>
@@ -17,7 +17,7 @@ export function ModalChangePassword() {
               <Modal.Heading>Reset Password</Modal.Heading>
             </Modal.Header>
             <Modal.Body>
-              <FormChangePassword/>
+              <FormChangePassword user={user}/>
             </Modal.Body>
             <Modal.Footer>
             

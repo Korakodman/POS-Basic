@@ -14,7 +14,7 @@ export default async function RootLayout({ children }) {
       user = jwt.verify(token, "SECRET_KEY")
     }
   } catch {}
-
+ console.log(user)
   return (
     <html lang="en">
       <body className="flex">
