@@ -6,7 +6,6 @@ import axios from "axios";
 
 export function FormChangePassword({user}) {
   const onSubmit = (e) => {
-    e.preventDefault();
     const formData = new FormData(e.currentTarget);
     const data = {}
 
@@ -55,7 +54,7 @@ export function FormChangePassword({user}) {
         type="password"
       
       >
-        <Label>Your old Password</Label>
+        <Label>Your new Password</Label>
         <Input placeholder="Password" />
         <FieldError />
       </TextField>
@@ -65,9 +64,8 @@ export function FormChangePassword({user}) {
         name="RepeatPassword"
         type="password"
       >
-        <Label>Repeat Password</Label>
+        <Label>Repeat new Password</Label>
         <Input placeholder="Repeat your password" />
-        <Description>Must be at least 8 characters with 1 uppercase and 1 number</Description>
         <FieldError />
       </TextField>
 

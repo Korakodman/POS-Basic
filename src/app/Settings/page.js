@@ -23,7 +23,7 @@ export default function Page() {
       <SectionCard title={"test"}>
         test
       </SectionCard>
-      {user?.role != "Admin" ? "" : <SecuritySection />}
+      {user?.role != "admin" ? "" : <SecuritySection />}
     </SettingsLayout>
   );
 }

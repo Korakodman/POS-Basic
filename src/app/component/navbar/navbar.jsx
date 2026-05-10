@@ -3,60 +3,104 @@ import React from 'react'
 import { useRouter } from 'next/navigation'
 import axios from 'axios'
 import { AvatarUI } from '../Layout/AvatarUI'
-function NavbarUI({user}) {
-    let route = useRouter()
-    function Home() {
-   route.push("/")
-    }
 
-      function Order() {
-   route.push("/Order")
-    }
-      function Products() {
-   route.push("/Products")
-    }
-      function Settings() {
-   route.push("/Settings")
-    }
-    function POS() {
-   route.push("/POS")
-    }
-    function Users() {
-   route.push("/User")
-    }
+function NavbarUI({ user }) {
+  let route = useRouter()
 
-  
-async function LogoutHandle(params) {
-  axios.get("http://localhost:3000/api/Logout")
-  .then(function(respone){
-    setTimeout(() => {
-      route.refresh()
-    }, 1000);
-  })
-  .catch(function(error){
-    console.log(error)
-  })
-}
+  const menus = [
+    { name: "Home", path: "/" },
+    { name: "Order", path: "/Order" },
+    { name: "Products", path: "/Products" },
+    ...(user.role === "admin"
+      ? [{ name: "Users", path: "/User" }]
+      : []),
+    { name: "Settings", path: "/Settings" },
+  ]
+
+  async function LogoutHandle() {
+    axios
+      .get("http://localhost:3000/api/Logout")
+      .then(function () {
+        setTimeout(() => {
+          route.refresh()
+        }, 1000)
+      })
+      .catch(function (error) {
+        console.log(error)
+      })
+  }
+
   return (
-         <nav className=' bg-gray-300 p-4 grid w-[250px] justify-center text-center border-r-4 border-white'>
-          
-            <header className='mt-20 hover:cursor-pointer' onClick={POS} >  <h1 className='text-2xl'>POS</h1></header>
- 
-             <section>
-<ul className='mt-20'>
-    <li className='li-nav' onClick={Home} >Home</li>
-    <li className='li-nav'onClick={Order}>Order</li>
-    <li className='li-nav' onClick={Products}>Products</li>
-     {user.role == "Admin" ?  <li className='li-nav' onClick={Users}>Users</li> : ""}
-    <li className='li-nav'onClick={Settings}>Settings</li>
-</ul>
-            </section>
-            <section className=' mt-36'>
-                <AvatarUI user={user}/>
-                <h1 className='font-bold bg-red-500 px-2 py-2 hover:cursor-pointer  hover:bg-red-400 text-white'onClick={LogoutHandle}>Logout</h1>
-                </section>
+    <nav className="bg-gray-300 w-[260px] min-h-screen border-r-4 border-white flex flex-col justify-between p-6">
 
-         </nav>
+      {/* Logo */}
+      <section>
+        <header
+          className="mt-10 mb-14 hover:cursor-pointer"
+          onClick={() => route.push("/POS")}
+        >
+          <h1 className="text-3xl font-bold tracking-wide text-gray-800">
+            POS
+          </h1>
+        </header>
+
+        {/* Menu */}
+        <ul className="flex flex-col gap-3">
+
+          {menus.map((menu, index) => (
+            <li
+              key={index}
+              onClick={() => route.push(menu.path)}
+              className="
+                bg-white/70
+                backdrop-blur-sm
+                px-4
+                py-3
+                rounded-2xl
+                shadow-sm
+                hover:bg-white
+                hover:shadow-md
+                hover:scale-[1.02]
+                transition-all
+                duration-200
+                cursor-pointer
+                font-medium
+                text-gray-700
+              "
+            >
+              {menu.name}
+            </li>
+          ))}
+
+        </ul>
+      </section>
+
+      {/* User */}
+      <section className="flex flex-col gap-4">
+
+        <div className="bg-white rounded-2xl p-3 shadow-sm">
+          <AvatarUI user={user} />
+        </div>
+
+        <button
+          onClick={LogoutHandle}
+          className="
+            bg-red-500
+            hover:bg-red-400
+            text-white
+            py-3
+            rounded-2xl
+            font-semibold
+            transition-all
+            duration-200
+            shadow-md
+          "
+        >
+          Logout
+        </button>
+
+      </section>
+    </nav>
   )
 }
 

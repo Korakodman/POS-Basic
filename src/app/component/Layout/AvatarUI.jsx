@@ -5,7 +5,7 @@ export function AvatarUI({user}) {
     <div className="flex justify-center px-1 py-1 mb-4 "> 
         <div className="flex flex-col ">
           <Label className="font-bold uppercase">{user.username}</Label>
-          <Description className="">{user.role}</Description>
+          <Description className="uppercase">{user.role}</Description>
         </div>
       
     </div>
