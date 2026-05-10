@@ -135,35 +135,66 @@ reader.readAsDataURL(file)
           </div>
         </div>
       </header>
-      <section className="border-4 border-b-white h-[800] flex flex-col">
-        <header className="flex justify-center h-fit">
-          <h1 className="text-2xl mt-2 ">รายการสินค้าในคลัง</h1>
-        </header>
-        <div className="p-4  h-[100vh] ">
-         {loading ? "Loading" : <div className="grid grid-cols-3">
-           {currentProducts?.map((item, index) => {
-            return (
-              <ProductsUI
-                key={index}
-                name={item.name}
-                price={item.price}
-                stock={item.stock}
-                category={item.category}
-                image={item.image}
-                preview={preview}
-                setPreview={setPreview}
-                _id={item._id}
-                item={item}
-                ProductCode={item.ProductCode}
-                setproducts={setproducts}
-              />
-            );
-          })}</div>}
-        </div>
-         <div className="">
-            <PaginationBasic  itemPerPage={itemPerPage} totalPages={totalPages} page={page} setPage={setPage}/>
-         </div>
-      </section>
+     <section className="border-4 border-b-white min-h-screen flex flex-col">
+
+  <header className="flex justify-center py-4">
+    <h1 className="text-3xl font-bold">
+      รายการสินค้าในคลัง
+    </h1>
+  </header>
+
+  <div className="p-6 flex-1">
+
+    {loading ? (
+      <div className="text-center text-xl">
+        Loading...
+      </div>
+    ) : (
+
+      <div
+        className="
+          grid
+          grid-cols-1
+          sm:grid-cols-2
+          xl:grid-cols-3
+          gap-8
+          place-items-center
+        "
+      >
+
+        {currentProducts?.map((item, index) => {
+          return (
+            <ProductsUI
+              key={index}
+              name={item.name}
+              price={item.price}
+              stock={item.stock}
+              category={item.category}
+              image={item.image}
+              preview={preview}
+              setPreview={setPreview}
+              _id={item._id}
+              item={item}
+              ProductCode={item.ProductCode}
+              setproducts={setproducts}
+            />
+          );
+        })}
+
+      </div>
+    )}
+  </div>
+
+  <div className="py-6 flex justify-center">
+    <PaginationBasic
+      itemPerPage={itemPerPage}
+      totalPages={totalPages}
+      page={page}
+      setPage={setPage}
+    />
+  </div>
+
+</section>
       <Modal
         isOpen={isOpen}
         onOpenChange={(open) => {

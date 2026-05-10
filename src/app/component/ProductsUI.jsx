@@ -1,6 +1,8 @@
 "use client";
 import React, { useState } from "react";
-import { Button, Modal } from "@heroui/react";
+import { Button, Modal,Card ,Chip} from "@heroui/react";
+import {Package,Boxes,Tag,Barcode,} from "lucide-react";
+
 export default function ProductsUI({
   name,
   price,
@@ -77,22 +79,86 @@ export default function ProductsUI({
     }
   }
   return (
-    <div className="flex border-2  w-[400] h-[200] justify-around items-center bg-white p-2 rounded-xl mt-10 drop-shadow-gray-500 drop-shadow-2xl">
-      <section
-        className="w-[175] "
-        onClick={() =>
-          openModal({ name, price, stock, category, image, _id, ProductCode })
-        }
-      >
-        <img src={image} alt="preview"></img>
-      </section>
-      <section className=" p-2">
-        <div className="font-bold">ชื่อสินค้า : {name}</div>
-        <div className="mt-4">ราคา : {price}</div>
-        <div className="mt-4">จำนวนในคลัง : {stock}</div>
-        <div className="mt-4">ประเภท : {category}</div>
-      </section>
-      <Modal isOpen={isOpen} onOpenChange={setIsOpen}>
+    
+      <Card
+  onClick={() =>
+    openModal({ name, price, stock, category, image, _id, ProductCode })
+  }
+  className="
+    w-[350px]
+    rounded-3xl
+    p-3
+    bg-white
+    hover:scale-[1.02]
+    transition-all
+    duration-300
+    shadow-md
+    hover:shadow-2xl
+  "
+>
+
+  {/* Product Image */}
+  <Card className="overflow-visible p-0">
+    <div className="flex justify-center">
+
+    <div className="w-[220px] h-[220px] overflow-hidden rounded-2xl bg-gray-100">
+
+      <img
+        src={image}
+        alt={name}
+        className="
+          w-full
+          h-full
+          object-cover
+          hover:scale-105
+          transition-all
+          duration-500
+        "
+      />
+
+    </div>
+
+  </div>
+
+
+  </Card>
+
+  {/* Product Info */}
+  <Card.Footer className="flex flex-col items-start gap-3 pt-5">
+
+    <div className="flex justify-between items-center w-full">
+
+      <h1 className="text-xl font-bold">
+        {name}
+      </h1>
+
+      <Chip color="primary" variant="flat">
+        {category}
+      </Chip>
+
+    </div>
+
+    <div className="grid gap-2 text-sm text-gray-600 w-full">
+
+      <div className="flex items-center gap-2">
+        <Tag size={16} />
+        <span>ราคา : {price} บาท</span>
+      </div>
+
+      <div className="flex items-center gap-2">
+        <Boxes size={16} />
+        <span>คงเหลือ : {stock}</span>
+      </div>
+
+      <div className="flex items-center gap-2">
+        <Barcode size={16} />
+        <span>{ProductCode}</span>
+      </div>
+
+    </div>
+
+  </Card.Footer>
+<Modal isOpen={isOpen} onOpenChange={setIsOpen}>
         <Modal.Backdrop>
           <Modal.Container>
             <Modal.Dialog className="sm:max-w-[360px]">
@@ -175,6 +241,6 @@ export default function ProductsUI({
           </Modal.Container>
         </Modal.Backdrop>
       </Modal>
-    </div>
+</Card>
   );
 }
