@@ -9,11 +9,9 @@ import { useFormState } from "react-dom";
 import useFetchData from "../hooks/useFetchData";
 import { PaginationBasic } from "../component/Pagination";
 export default function page() {
-
   const [isOpen, setIsOpen] = useState(false);
   function handleModal() {
     setIsOpen(true);
-    
   }
 
   const [products, setproducts] = useState([]);
@@ -21,33 +19,31 @@ export default function page() {
     name: "",
     price: Number(0),
     stock: Number(0),
-    category: "", 
+    category: "",
     image: "",
     ProductCode: Date.now().toString().slice(-6),
   });
 
-
-    const { data, loading, error } = useFetchData("http://localhost:3000/api/products")
-   useEffect(()=>{
-   if(data){
-    setproducts(data)
-   }
-   },[data])
-
+  const { data, loading, error } = useFetchData(
+    "http://localhost:3000/api/products",
+  );
+  useEffect(() => {
+    if (data) {
+      setproducts(data);
+    }
+  }, [data]);
 
   function cancel() {
-    setPreview(null)
+    setPreview(null);
   }
-  
 
-  
- async function handleForm(e) {
+  async function handleForm(e) {
     const res = await fetch("http://localhost:3000/api/products", {
-    method: "POST",
-    headers: { "Content-Type": "application/json" },
-    body: JSON.stringify({ ...formdata,}),
-  });
-  const data = await res.json();
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ ...formdata }),
+    });
+    const data = await res.json();
     setproducts((prev) => [...prev, data]);
     setformdata({
       name: "",
@@ -58,7 +54,6 @@ export default function page() {
       ProductCode: "",
     });
     setIsOpen(false);
-
   }
 
   function handleInput(e) {
@@ -70,44 +65,44 @@ export default function page() {
     }));
   }
 
- 
-  
   const [selectimage, selectimagesetImage] = useState(null);
   const [preview, setPreview] = useState(null);
 
   function handleImageChange(e) {
     const file = e.target.files[0];
-    const reader = new FileReader()
+    const reader = new FileReader();
 
     reader.onloadend = () => {
-  setformdata(prev => ({
-    ...prev,
-    image: reader.result // base64 string
-  }))
-}
-reader.readAsDataURL(file)
+      setformdata((prev) => ({
+        ...prev,
+        image: reader.result, // base64 string
+      }));
+    };
+    reader.readAsDataURL(file);
     if (file) {
       setPreview(URL.createObjectURL(file));
-    }else{
-      cancel()
+    } else {
+      cancel();
     }
   }
 
- const handleSearch = (e) =>{
-  let word = e.target.value
-   if(word){
-    const result = data.filter(item=> item.name.toLowerCase().includes(word.toLowerCase()))
-   setproducts(result)
-   }else{
-    setproducts(data)
-   }
- }
+  const handleSearch = (e) => {
+    let word = e.target.value;
+    if (word) {
+      const result = data.filter((item) =>
+        item.name.toLowerCase().includes(word.toLowerCase()),
+      );
+      setproducts(result);
+    } else {
+      setproducts(data);
+    }
+  };
 
   const [page, setPage] = useState(1);
-  const itemPerPage = 6
-  const totalPages = Math.ceil(products.length / itemPerPage)
-  const start = (page - 1) * itemPerPage
-  const currentProducts = products.slice(start, start + itemPerPage)
+  const itemPerPage = 6;
+  const totalPages = Math.ceil(products.length / itemPerPage);
+  const start = (page - 1) * itemPerPage;
+  const currentProducts = products.slice(start, start + itemPerPage);
 
   return (
     <main className=" min-h-screen w-screen  bg-gray-300 font-sans">
@@ -119,10 +114,9 @@ reader.readAsDataURL(file)
             id="name"
             placeholder="ค้นหาสินค้าในคลัง"
             type="text"
-            onChange={(e)=>handleSearch(e)}
-          
+            onChange={(e) => handleSearch(e)}
           />
-          <ComboBoxUI  data={data} setproducts={setproducts}/>
+          <ComboBoxUI data={data} setproducts={setproducts} />
           <div className="ml-4 font-bold">
             <Button
               variant="secondary"
@@ -135,24 +129,17 @@ reader.readAsDataURL(file)
           </div>
         </div>
       </header>
-     <section className="border-4 border-b-white min-h-screen flex flex-col">
+      <section className="border-4 border-b-white min-h-screen flex flex-col">
+        <header className="flex justify-center py-4">
+          <h1 className="text-3xl font-bold">รายการสินค้าในคลัง</h1>
+        </header>
 
-  <header className="flex justify-center py-4">
-    <h1 className="text-3xl font-bold">
-      รายการสินค้าในคลัง
-    </h1>
-  </header>
-
-  <div className="p-6 flex-1">
-
-    {loading ? (
-      <div className="text-center text-xl">
-        Loading...
-      </div>
-    ) : (
-
-      <div
-        className="
+        <div className="p-6 flex-1">
+          {loading ? (
+            <div className="text-center text-xl">Loading...</div>
+          ) : (
+            <div
+              className="
           grid
           grid-cols-1
           sm:grid-cols-2
@@ -160,41 +147,38 @@ reader.readAsDataURL(file)
           gap-8
           place-items-center
         "
-      >
+            >
+              {currentProducts?.map((item, index) => {
+                return (
+                  <ProductsUI
+                    key={index}
+                    name={item.name}
+                    price={item.price}
+                    stock={item.stock}
+                    category={item.category}
+                    image={item.image}
+                    preview={preview}
+                    setPreview={setPreview}
+                    _id={item._id}
+                    item={item}
+                    ProductCode={item.ProductCode}
+                    setproducts={setproducts}
+                  />
+                );
+              })}
+            </div>
+          )}
+        </div>
 
-        {currentProducts?.map((item, index) => {
-          return (
-            <ProductsUI
-              key={index}
-              name={item.name}
-              price={item.price}
-              stock={item.stock}
-              category={item.category}
-              image={item.image}
-              preview={preview}
-              setPreview={setPreview}
-              _id={item._id}
-              item={item}
-              ProductCode={item.ProductCode}
-              setproducts={setproducts}
-            />
-          );
-        })}
-
-      </div>
-    )}
-  </div>
-
-  <div className="py-6 flex justify-center">
-    <PaginationBasic
-      itemPerPage={itemPerPage}
-      totalPages={totalPages}
-      page={page}
-      setPage={setPage}
-    />
-  </div>
-
-</section>
+        <div className="py-6 flex justify-center">
+          <PaginationBasic
+            itemPerPage={itemPerPage}
+            totalPages={totalPages}
+            page={page}
+            setPage={setPage}
+          />
+        </div>
+      </section>
       <Modal
         isOpen={isOpen}
         onOpenChange={(open) => {
@@ -213,52 +197,52 @@ reader.readAsDataURL(file)
                 <Modal.Heading>เพิ่มรายการหรือไม่?</Modal.Heading>
               </Modal.Header>
               <Modal.Body>
-                <form className="grid" onSubmit={(e)=>handleForm(e)}>
-                   <label htmlFor="name">ชื่อสินค้า</label>
-  <input
-    id="name"
-    className="border-2 border-gray-200 rounded-md mt-2 p-2"
-    name="name"
-    onChange={(e) => handleInput(e)}
-    required
-  />
+                <form className="grid" onSubmit={(e) => handleForm(e)}>
+                  <label htmlFor="name">ชื่อสินค้า</label>
+                  <input
+                    id="name"
+                    className="border-2 border-gray-200 rounded-md mt-2 p-2"
+                    name="name"
+                    onChange={(e) => handleInput(e)}
+                    required
+                  />
 
-  <label htmlFor="price">ราคา</label>
-  <input
-    id="price"
-    className="border-2 border-gray-200 rounded-md mt-2 p-2"
-    name="price"
-    onChange={(e) => handleInput(e)}
-    required
-  />
+                  <label htmlFor="price">ราคา</label>
+                  <input
+                    id="price"
+                    className="border-2 border-gray-200 rounded-md mt-2 p-2"
+                    name="price"
+                    onChange={(e) => handleInput(e)}
+                    required
+                  />
 
-  <label htmlFor="stock">จำนวนที่รับ</label>
-  <input
-    id="stock"
-    className="border-2 border-gray-200 rounded-md mt-2 p-2"
-    name="stock"
-    onChange={(e) => handleInput(e)}
-    required
-  />
+                  <label htmlFor="stock">จำนวนที่รับ</label>
+                  <input
+                    id="stock"
+                    className="border-2 border-gray-200 rounded-md mt-2 p-2"
+                    name="stock"
+                    onChange={(e) => handleInput(e)}
+                    required
+                  />
 
-  <label htmlFor="category">ประเภท</label>
-  <input
-    id="category"
-    className="border-2 border-gray-200 rounded-md mt-2 p-2"
-    name="category"
-    onChange={(e) => handleInput(e)}
-    required
-  />
+                  <label htmlFor="category">ประเภท</label>
+                  <input
+                    id="category"
+                    className="border-2 border-gray-200 rounded-md mt-2 p-2"
+                    name="category"
+                    onChange={(e) => handleInput(e)}
+                    required
+                  />
 
-  <label htmlFor="image">รูปสินค้า</label>
-  <input
-    id="image"
-    className="border-2 border-gray-200 rounded-md mt-2 p-1"
-    type="file"
-    name="image"
-    onChange={handleImageChange}
-    required
-  />
+                  <label htmlFor="image">รูปสินค้า</label>
+                  <input
+                    id="image"
+                    className="border-2 border-gray-200 rounded-md mt-2 p-1"
+                    type="file"
+                    name="image"
+                    onChange={handleImageChange}
+                    required
+                  />
                   <div className="flex justify-center">
                     {preview && (
                       // eslint-disable-next-line @next/next/no-img-element
@@ -270,7 +254,11 @@ reader.readAsDataURL(file)
                       />
                     )}
                   </div>
-                  <Button className="w-full mt-4" variant="primary" type="submit">
+                  <Button
+                    className="w-full mt-4"
+                    variant="primary"
+                    type="submit"
+                  >
                     เพิ่มสินค้า
                   </Button>
                 </form>
@@ -289,9 +277,6 @@ reader.readAsDataURL(file)
           </Modal.Container>
         </Modal.Backdrop>
       </Modal>
-
-     
-      
     </main>
   );
 }

@@ -1,7 +1,7 @@
 "use client";
 import React, { useState } from "react";
-import { Button, Modal,Card ,Chip} from "@heroui/react";
-import {Package,Boxes,Tag,Barcode,} from "lucide-react";
+import { Button, Modal,Card ,Chip ,Input,} from "@heroui/react";
+import {Package,Boxes,Tag,Barcode,ImagePlus,Pencil,} from "lucide-react";
 
 export default function ProductsUI({
   name,
@@ -79,7 +79,7 @@ export default function ProductsUI({
     }
   }
   return (
-    
+    <>
       <Card
   onClick={() =>
     openModal({ name, price, stock, category, image, _id, ProductCode })
@@ -158,6 +158,7 @@ export default function ProductsUI({
     </div>
 
   </Card.Footer>
+</Card>
 <Modal isOpen={isOpen} onOpenChange={setIsOpen}>
         <Modal.Backdrop>
           <Modal.Container>
@@ -241,6 +242,5 @@ export default function ProductsUI({
           </Modal.Container>
         </Modal.Backdrop>
       </Modal>
-</Card>
-  );
+  </>);
 }
