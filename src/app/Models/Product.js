@@ -22,14 +22,15 @@ const productSchema = new mongoose.Schema(
       type: String,
       required: true,
     },
-    image:{
-      type:String,
+    image: {
+      type: String,
       required: true,
     },
-    ProductCode:{
-      type:String,
-      require:true,
-    }
+    ProductCode: {
+      type: String,
+      required: true,
+      unique: true,
+    },
   },
   { timestamps: true }
 );
