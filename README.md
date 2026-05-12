@@ -154,13 +154,14 @@ src/
 
 ## Environment Variables
 
-สร้างไฟล์ `.env.local` ที่ root ของโปรเจกต์ แล้วกำหนดค่า MongoDB connection string
+สร้างไฟล์ `.env.local` ที่ root ของโปรเจกต์ แล้วกำหนดค่า MongoDB connection string และ secret สำหรับลงนาม/ตรวจสอบ JWT token
 
 ```env
 URLDATABASE=mongodb+srv://username:password@cluster-url/database-name
+JWT_SECRET=replace-with-a-long-random-secret
 ```
 
-> หมายเหตุ: ห้าม commit ค่า connection string จริงขึ้น repository
+> หมายเหตุ: ห้าม commit ค่า connection string จริงหรือค่า `JWT_SECRET` จริงขึ้น repository
 
 ## Getting Started
 
