@@ -8,7 +8,7 @@ import { Button, Modal } from "@heroui/react";
 import { useFormState } from "react-dom";
 import useFetchData from "../hooks/useFetchData";
 import { PaginationBasic } from "../component/Pagination";
-export default function page() {
+export default function Page() {
   const [isOpen, setIsOpen] = useState(false);
   function handleModal() {
     setIsOpen(true);

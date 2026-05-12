@@ -9,7 +9,7 @@ import {Rocket} from "@gravity-ui/icons";
 import { MoDalUI } from "../component/Modal";
 import AlertUI from "../component/Alert";
 import useFetchData from "../hooks/useFetchData";
-export default function page() {
+export default function Page() {
 
   const [isOpen, setIsOpen] = useState(false);
   const [selectedItem, setSelectedItem] = useState(null);

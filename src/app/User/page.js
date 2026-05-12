@@ -2,7 +2,7 @@
 import React, { useState } from 'react'
 import { TableUser } from '../component/User/TableUser'
 
-export default function page() {
+export default function Page() {
 
 const [isOpen, setIsOpen] = useState(false);
 const [user,setuser] = useState([])

@@ -4,18 +4,16 @@ import useFetchData from "../hooks/useFetchData";
 import { useReactToPrint } from "react-to-print";
 
 export default function Page() {
-  const [orders, setOrders] = useState([]);
   const [selectedOrder, setSelectedOrder] = useState(null);
-
   const printRef = useRef();
 
   let { data } = useFetchData("http://localhost:3000/api/orders");
-
-  useEffect(() => {
-    if (data) {
-      setOrders(data.order);
-    }
-  }, [data]);
+  const orders = data?.order || []
+  // useEffect(() => {
+  //   if (data) {
+  //     setOrders(data.order);
+  //   }
+  // }, [data]);
 
   const handlePrint = useReactToPrint({
     contentRef:printRef
