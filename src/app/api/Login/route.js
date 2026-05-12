@@ -28,9 +28,18 @@ export async function POST(req) {
       );
     }
 
+    const jwtSecret = process.env.JWT_SECRET;
+
+    if (!jwtSecret) {
+      return NextResponse.json(
+        { message: "JWT_SECRET is not configured" },
+        { status: 500 }
+      );
+    }
+
     const token = jwt.sign(
       { id: user._id, username: user.username ,role: user.role,},
-      "SECRET_KEY",
+      jwtSecret,
       { expiresIn: "1d" }
     );
 

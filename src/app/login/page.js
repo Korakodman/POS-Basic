@@ -13,7 +13,7 @@ import jwt from "jsonwebtoken"
     
   try {
       if (token) {
-        user = jwt.verify(token, "SECRET_KEY")
+        user = jwt.verify(token, process.env.JWT_SECRET)
         if(user){
         redirect("/")
         }
