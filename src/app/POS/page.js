@@ -96,7 +96,8 @@ function DeleteOption(ProductCode) {
       {/* <------- Header -------> */}
       <header className=" bg-gray-300 opacity-80  p-4 flex h-30 justify-between items-center">
         <div>
-          <img src="/Barcode.png" className=" w-[200px] h-[100px]"></img>
+          {/* eslint-disable-next-line @next/next/no-img-element */}
+          <img src="/Barcode.png" alt="Barcode scanner" className=" w-[200px] h-[100px]"></img>
         </div>
         <div className="p-4 ">
           <input
