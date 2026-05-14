@@ -1,37 +1,52 @@
 "use client";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { ComboBoxUI } from "../component/ComboBox";
 import { Form, Input, Label } from "@heroui/react";
 import ProductsUI from "../component/ProductsUI";
 import { Plus } from "@gravity-ui/icons";
 import { Button, Modal } from "@heroui/react";
-import { useFormState } from "react-dom";
 import useFetchData from "../hooks/useFetchData";
 import { PaginationBasic } from "../component/Pagination";
+const createEmptyProductForm = () => ({
+  name: "",
+  price: 0,
+  stock: 0,
+  category: "",
+  image: "",
+  ProductCode: "",
+});
+
+const createProductCode = () => Date.now().toString().slice(-6);
+
 export default function Page() {
   const [isOpen, setIsOpen] = useState(false);
+  const [addedProducts, setAddedProducts] = useState([]);
+  const [searchTerm, setSearchTerm] = useState("");
+  const [categoryTerm, setCategoryTerm] = useState("");
+  const [formdata, setformdata] = useState(createEmptyProductForm);
+
   function handleModal() {
+    setformdata((prev) => ({
+      ...prev,
+      ProductCode: prev.ProductCode || createProductCode(),
+    }));
     setIsOpen(true);
   }
-
-  const [products, setproducts] = useState([]);
-  const [formdata, setformdata] = useState({
-    name: "",
-    price: Number(0),
-    stock: Number(0),
-    category: "",
-    image: "",
-    ProductCode: Date.now().toString().slice(-6),
-  });
 
   const { data, loading, error } = useFetchData(
     "http://localhost:3000/api/products",
   );
-  useEffect(() => {
-    if (data) {
-      setproducts(data);
-    }
-  }, [data]);
+  const productSource = [...(data || []), ...addedProducts];
+  const products = productSource.filter((item) => {
+    const matchesName = searchTerm
+      ? item.name.toLowerCase().includes(searchTerm.toLowerCase())
+      : true;
+    const matchesCategory = categoryTerm
+      ? item.category.toLowerCase().includes(categoryTerm.toLowerCase())
+      : true;
+
+    return matchesName && matchesCategory;
+  });
 
   function cancel() {
     setPreview(null);
@@ -43,16 +58,9 @@ export default function Page() {
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ ...formdata }),
     });
-    const data = await res.json();
-    setproducts((prev) => [...prev, data]);
-    setformdata({
-      name: "",
-      price: 0,
-      stock: 0,
-      category: "",
-      image: "",
-      ProductCode: "",
-    });
+    await res.json();
+    setAddedProducts((prev) => [...prev, { ...formdata, _id: formdata.ProductCode }]);
+    setformdata(createEmptyProductForm());
     setIsOpen(false);
   }
 
@@ -61,11 +69,10 @@ export default function Page() {
 
     setformdata((prev) => ({
       ...prev,
-      [name]: value,
+      [name]: name === "price" || name === "stock" ? Number(value) : value,
     }));
   }
 
-  const [selectimage, selectimagesetImage] = useState(null);
   const [preview, setPreview] = useState(null);
 
   function handleImageChange(e) {
@@ -87,15 +94,7 @@ export default function Page() {
   }
 
   const handleSearch = (e) => {
-    let word = e.target.value;
-    if (word) {
-      const result = data.filter((item) =>
-        item.name.toLowerCase().includes(word.toLowerCase()),
-      );
-      setproducts(result);
-    } else {
-      setproducts(data);
-    }
+    setSearchTerm(e.target.value);
   };
 
   const [page, setPage] = useState(1);
@@ -116,7 +115,7 @@ export default function Page() {
             type="text"
             onChange={(e) => handleSearch(e)}
           />
-          <ComboBoxUI data={data} setproducts={setproducts} />
+          <ComboBoxUI onCategoryChange={setCategoryTerm} />
           <div className="ml-4 font-bold">
             <Button
               variant="secondary"
@@ -162,7 +161,7 @@ export default function Page() {
                     _id={item._id}
                     item={item}
                     ProductCode={item.ProductCode}
-                    setproducts={setproducts}
+                    setproducts={setAddedProducts}
                   />
                 );
               })}

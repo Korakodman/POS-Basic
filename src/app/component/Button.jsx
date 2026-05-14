@@ -12,6 +12,11 @@ export default function ButtonUI({text,style,HandlePayment,total,setCart,Cart},)
   const [Change,setChange] = useState(0)
   const [User,SetUser] = useState()
 
+  function resetPaymentState() {
+    setChange(0)
+    setReceiveMoney(0)
+  }
+
     
   useEffect(()=>{
     axios.get("http://localhost:3000/api/me")
@@ -29,6 +34,7 @@ function handlePay(HandlePayment) {
       if(Cart.length === 0){
         alert("ไม่พบสินค้าที่ต้องการชำระ")
       }else{
+        resetPaymentState()
         setPaymentMethod(true)
        setIsOpen(true)
       }
@@ -36,6 +42,7 @@ function handlePay(HandlePayment) {
       if(Cart.length === 0){
         alert("ไม่พบสินค้าที่ต้องการชำระ")
       }else{
+        resetPaymentState()
         setPaymentMethod(false)
        setIsOpen(true)
       }
@@ -112,16 +119,9 @@ function Caculate(e) {
   } 
 
 function Cancel(params) {
-    setChange(0)
-  setReceiveMoney(0)
+    resetPaymentState()
 }
 
- useEffect(()=>{
-  
-  setChange(0)
-  setReceiveMoney(0)
-
-  },[isOpen])
   return <>
   <Button className={style} onClick={()=>handlePay(HandlePayment)} >{text}</Button>
   <Modal

@@ -1,33 +1,15 @@
 "use client"
 
-import {Avatar} from "@heroui/react";
-import {Person} from "@gravity-ui/icons";
 import CardShow from "./component/CardShow";
 import TableUI from "./component/Table";
 import useFetchData from "./hooks/useFetchData";
-import { useEffect, useState } from "react";
-import { CustomSpinner } from "./component/Spiner";
+
 export default function Home() {
 
     let { data } = useFetchData("http://localhost:3000/api/orders");
-    const [Length,setLength] =  useState(null)
-    const [item,setitem] = useState([])
-    useEffect(()=>{
-   if(data){
-    setLength(data.order.length)
-    setitem(data.order)
-  
-   }
-    },[data])
-   const result = item.map((items)=>{
-      return items.total
-    })
-    let total = 0
-   for (let i = 0; i < result.length; i++) {
-    let element = result[i];
-    total += element
-
-   }
+    const item = data?.order || []
+    const Length = item.length
+    const total = item.reduce((sum, order) => sum + order.total, 0)
   return (
     <main className="min-h-screen w-screen  bg-gray-300 font-sans ">
       <header className="flex justify-between p-2 border-4 border-b-white h-20 items-center">

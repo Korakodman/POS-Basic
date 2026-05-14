@@ -103,6 +103,7 @@ export default function ProductsUI({
 
     <div className="w-[220px] h-[220px] overflow-hidden rounded-2xl bg-gray-100">
 
+      {/* eslint-disable-next-line @next/next/no-img-element */}
       <img
         src={image}
         alt={name}
