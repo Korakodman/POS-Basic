@@ -100,7 +100,7 @@ function NavbarUI({ user }) {
         <AvatarUI user={user} />
 
         <button
-          className="font-bold bg-red-500 px-2 py-2 mt-4 rounded-xl hover:bg-red-400 text-white w-full"
+          className="font-bold bg-red-500 px-2 py-2 mt-4 rounded-xl hover:bg-red-400 text-white w-full cursor-pointer"
           onClick={LogoutHandle}
         >
           Logout

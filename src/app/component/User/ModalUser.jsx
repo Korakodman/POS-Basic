@@ -20,7 +20,7 @@ export default function ModalUser({modal}) {
       setIsOpen(false)
       window.location.reload()
     } catch (error) {
-      console.log("Something Error ", error);
+      console.log("Error is ", error);
     }
   }
 
