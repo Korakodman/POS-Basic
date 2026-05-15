@@ -18,7 +18,7 @@ export function RadioUser({handleInput,Edit}) {
           <Label>cashier</Label>
         </Radio.Content>
       </Radio>
-      <Radio value="Admin">
+      <Radio value="admin">
         <Radio.Control>
           <Radio.Indicator>
             {({isSelected}) =>

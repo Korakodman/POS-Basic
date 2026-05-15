@@ -10,14 +10,21 @@ export async function POST(req) {
   try {
     const body = await req.json();
     const { username, password, repeatPassword } = body;
+     if(!username){
+      return NextResponse.json({message:"กรุณาใส่ชื่อผู้ใช้งาน"},{status:401})
+     }
 
-    const existUser = await User.findOne({ username });
+      const existUser = await User.findOne({ username });
     if (existUser) {
       return NextResponse.json(
         { message: "ผู้ใช้ซ้ำแล้วครับ" },
         { status: 422 }
       );
     }
+      if(!password){
+      return NextResponse.json({message:"กรุณาใส่รหัสผ่าน"},{status:401})
+     }
+
 
     if (password !== repeatPassword) {
       return NextResponse.json(
@@ -46,7 +53,7 @@ export async function POST(req) {
     console.error(error); 
 
     return NextResponse.json(
-      { message: "Something went wrong" },
+      { message: "กรุณากรอกรหัสผู้ใช้และรหัสผ่านให้ครบ" },
       { status: 500 } 
     );
   }

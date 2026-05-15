@@ -51,19 +51,19 @@ export function FormLogin() {
       )}
 
       <TextField isRequired name="username" type="text">
-        <Label className="mb-2 block text-sm font-bold text-slate-700">Username</Label>
+        <Label className="mb-2 block text-sm font-bold text-slate-700">ชื่อผู้ใช้งาน</Label>
         <Input
           className="w-full rounded-2xl border border-slate-200 bg-white px-4 py-3 text-slate-900 outline-none transition placeholder:text-slate-400 focus:border-cyan-400 focus:ring-4 focus:ring-cyan-100"
-          placeholder="Enter your username"
+          placeholder="โปรดใส่ชื่อผู้ใช้งาน"
         />
         <FieldError className="mt-1 text-sm text-red-600" />
       </TextField>
 
       <TextField isRequired minLength={8} name="password" type="password">
-        <Label className="mb-2 block text-sm font-bold text-slate-700">Password</Label>
+        <Label className="mb-2 block text-sm font-bold text-slate-700">รหัสผ่าน</Label>
         <Input
           className="w-full rounded-2xl border border-slate-200 bg-white px-4 py-3 text-slate-900 outline-none transition placeholder:text-slate-400 focus:border-cyan-400 focus:ring-4 focus:ring-cyan-100"
-          placeholder="Enter your password"
+          placeholder="ใส่รหัสผ่านของคุณ"
         />
         <FieldError className="mt-1 text-sm text-red-600" />
       </TextField>

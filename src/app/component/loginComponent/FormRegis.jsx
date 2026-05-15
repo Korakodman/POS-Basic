@@ -50,7 +50,7 @@ export function FormRegis() {
       )}
 
       <TextField isRequired name="username" type="text">
-        <Label className="mb-2 block text-sm font-bold text-slate-700">Username</Label>
+        <Label className="mb-2 block text-sm font-bold text-slate-700">ชื่อผู้ใช้งาน</Label>
         <Input
           className="w-full rounded-2xl border border-slate-200 bg-white px-4 py-3 text-slate-900 outline-none transition placeholder:text-slate-400 focus:border-teal-400 focus:ring-4 focus:ring-teal-100"
           placeholder="Create your username"
@@ -59,7 +59,7 @@ export function FormRegis() {
       </TextField>
 
       <TextField isRequired minLength={8} name="password" type="password">
-        <Label className="mb-2 block text-sm font-bold text-slate-700">Password</Label>
+        <Label className="mb-2 block text-sm font-bold text-slate-700">รหัสผ่าน</Label>
         <Input
           className="w-full rounded-2xl border border-slate-200 bg-white px-4 py-3 text-slate-900 outline-none transition placeholder:text-slate-400 focus:border-teal-400 focus:ring-4 focus:ring-teal-100"
           placeholder="Enter your password"
@@ -71,7 +71,7 @@ export function FormRegis() {
       </TextField>
 
       <TextField isRequired minLength={8} name="repeatPassword" type="password">
-        <Label className="mb-2 block text-sm font-bold text-slate-700">Repeat Password</Label>
+        <Label className="mb-2 block text-sm font-bold text-slate-700">ยืนยันรหัสผ่าน</Label>
         <Input
           className="w-full rounded-2xl border border-slate-200 bg-white px-4 py-3 text-slate-900 outline-none transition placeholder:text-slate-400 focus:border-teal-400 focus:ring-4 focus:ring-teal-100"
           placeholder="Repeat your password"
