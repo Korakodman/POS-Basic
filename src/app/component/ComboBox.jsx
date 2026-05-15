@@ -1,15 +1,8 @@
 import {ComboBox, Input, Label, ListBox} from "@heroui/react";
-import { useState } from "react";
 
-export  function ComboBoxUI({data,setproducts}) {
+export  function ComboBoxUI({onCategoryChange}) {
      const handleCatalog = (e)=>{
-  let word = e
-  if(word){
-    const result = data.filter(item=>item.category.toLowerCase().includes(word.toLowerCase()))
-    setproducts(result)
-  }else{
-    setproducts(data)
-  }
+  onCategoryChange(e)
  }
   return (
      <div className="space-y-2">
