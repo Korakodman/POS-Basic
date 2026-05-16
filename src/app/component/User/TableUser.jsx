@@ -1,19 +1,12 @@
 'use client'
 import {Button, Table} from "@heroui/react";
 import useFetchData from "../../hooks/useFetchData";
-import { useEffect, useState } from "react";
-import {Modal} from "@heroui/react";
 import ModalUser from "./ModalUser";
 import { User } from "lucide-react";
 export function TableUser({TableOption}) {
 
-const {data,loading,error} = useFetchData("http://localhost:3000/api/admin/GetUser")
-const [dataUser,SetdataUser] = useState([])
-useEffect(()=>{
-  if(data){
-  SetdataUser(data.user)
-}
-},[data])
+const {data} = useFetchData("http://localhost:3000/api/admin/GetUser")
+const dataUser = data?.user || []
 const {HandleEdit,handleInput,setuser,user,isOpen,setIsOpen,Edit} = TableOption
 const Modal = {HandleEdit,handleInput,setuser,user,isOpen,setIsOpen,Edit}
 // const handleSubmitForm = ()=>{
@@ -29,13 +22,13 @@ const Modal = {HandleEdit,handleInput,setuser,user,isOpen,setIsOpen,Edit}
             <Table.Column>แก้ไข</Table.Column>
           </Table.Header>
           <Table.Body>
-           {dataUser.map((user,index)=>[
+           {dataUser.map((user)=> (
              <Table.Row key={user._id}>
           <Table.Cell > {user.username}</Table.Cell>
               <Table.Cell>{user.role}</Table.Cell>
               <Table.Cell><Button onClick={()=>HandleEdit(user)}>แก้ไข</Button></Table.Cell>
             </Table.Row>
-           ])}
+           ))}
           </Table.Body>
         </Table.Content>
       </Table.ScrollContainer>
