@@ -126,14 +126,14 @@ export default function Home() {
               <div className="max-w-3xl">
                 <div className="inline-flex items-center gap-2 rounded-full border border-white/10 bg-white/10 px-4 py-2 text-sm font-semibold text-emerald-200 backdrop-blur">
                   <Sparkles size={16} />
-                  POS Portfolio Dashboard
+                  POS Dashboard
                 </div>
                 <h1 className="mt-6 text-4xl font-black tracking-tight md:text-6xl">
-                  ภาพรวมร้านที่ดูสะอาด ใช้งานง่าย และพร้อมโชว์ผลงาน
+                  รายละเอียดการจัดการต่างๆ
                 </h1>
                 <p className="mt-4 max-w-2xl text-base leading-7 text-slate-300">
-                  ตัดข้อมูลที่ยังไม่จำเป็นออก และเน้นตัวเลขสำคัญ เช่น ยอดขาย ออเดอร์ล่าสุด
-                  และสินค้าที่ขายแล้ว เพื่อให้หน้า Home ดูเป็นระบบมากขึ้นสำหรับ portfolio
+                  ยอดขาย ออเดอร์ล่าสุด
+                  และสินค้าที่ขายแล้ว
                 </p>
               </div>
 
@@ -266,21 +266,7 @@ export default function Home() {
               </div>
             </div>
 
-            <div className="rounded-[2rem] bg-gradient-to-br from-emerald-500 to-teal-600 p-6 text-white shadow-xl shadow-emerald-200">
-              <div className="flex items-start justify-between gap-4">
-                <div>
-                  <p className="text-sm font-semibold uppercase tracking-[0.25em] text-emerald-100">
-                    Portfolio Note
-                  </p>
-                  <h2 className="mt-3 text-2xl font-black">ออกแบบให้ดูเป็น product จริง</h2>
-                </div>
-                <ArrowUpRight size={28} />
-              </div>
-              <p className="mt-4 text-sm leading-6 text-emerald-50">
-                หน้า Home ใหม่ลดการ์ดแจ้งเตือนจำลอง และเปลี่ยนเป็นข้อมูลที่ดึงจากออเดอร์จริง
-                ทำให้สื่อสารความสามารถของระบบ POS ได้ชัดเจนขึ้น
-              </p>
-            </div>
+          
           </aside>
         </section>
       </section>
