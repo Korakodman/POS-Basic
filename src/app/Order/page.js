@@ -79,7 +79,7 @@ export default function Page() {
   };
 
   return (
-    <main className="min-h-screen w-screen bg-slate-100 px-4 py-6 text-slate-900 sm:px-6 lg:px-8">
+    <main className="min-h-screen w-full bg-slate-100 px-4 py-6 text-slate-900 sm:px-6 lg:px-8">
       <section className="mx-auto max-w-7xl space-y-6">
         <div className="overflow-hidden rounded-[2rem] bg-gradient-to-r from-slate-950 via-slate-900 to-slate-800 p-6 text-white shadow-2xl shadow-slate-300/70 md:p-8">
           <div className="flex flex-col gap-6 md:flex-row md:items-end md:justify-between">
