@@ -115,7 +115,7 @@ export default function Home() {
   ];
 
   return (
-    <main className="min-h-screen w-screen bg-slate-100 px-4 py-6 text-slate-950 sm:px-6 lg:px-8">
+    <main className="min-h-screen w-full bg-slate-100 px-4 py-6 text-slate-950 sm:px-6 lg:px-8">
       <section className="mx-auto max-w-7xl space-y-6">
         <section className="overflow-hidden rounded-[2rem] bg-slate-950 text-white shadow-2xl shadow-slate-300/70">
           <div className="relative isolate p-6 md:p-8 lg:p-10">
