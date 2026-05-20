@@ -56,7 +56,7 @@ function NavbarUI({ user }) {
   }
 
   return (
-    <nav className="bg-gray-300 p-4 w-[250px] min-h-screen border-r-4 border-white flex flex-col justify-between">
+    <nav className="sticky top-0 h-screen shrink-0 bg-gray-300 p-4 w-[250px] border-r-4 border-white flex flex-col justify-between overflow-y-auto">
       <section>
         <header
           className="mt-20 text-center hover:cursor-pointer"

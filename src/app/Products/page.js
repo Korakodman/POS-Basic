@@ -104,7 +104,7 @@ export default function Page() {
   const currentProducts = products.slice(start, start + itemPerPage);
 
   return (
-    <main className=" min-h-screen w-screen  bg-gray-300 font-sans">
+    <main className=" min-h-screen w-full  bg-gray-300 font-sans">
       <header className="h-20 p-2 flex border-4  items-center border-b-white">
         <h1 className=" text-xl mr-4 ml-4">ค้นหา</h1>
         <div className="flex justify-center items-center">

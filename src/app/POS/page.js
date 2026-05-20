@@ -92,7 +92,7 @@ function DeleteOption(ProductCode) {
     setCart((prev)=>prev.filter((item)=>item.ProductCode !== ProductCode))
 }
   return (
-    <main className=" min-h-screen w-screen  bg-gray-200 font-sans">
+    <main className=" min-h-screen w-full  bg-gray-200 font-sans">
       {/* <------- Header -------> */}
       <header className=" bg-gray-300 opacity-80  p-4 flex h-30 justify-between items-center">
         <div>
