@@ -1,30 +1,27 @@
 import { NextResponse } from "next/server";
 
-export function middleware(request) {
+export function proxy(request) {
   const token = request.cookies.get("token");
   const pathname = request.nextUrl.pathname;
 
   const publicPaths = ["/login", "/register"];
-
   const isPublic = publicPaths.includes(pathname);
 
   if (!token && !isPublic) {
     return NextResponse.redirect(new URL("/login", request.url));
   }
 
-     if (token && pathname === "/login") {
-    return NextResponse.redirect(new URL("/", request.url))
+  if (token && pathname === "/login") {
+    return NextResponse.redirect(new URL("/", request.url));
   }
-  
+
   if (token && pathname === "/register") {
-    return NextResponse.redirect(new URL("/", request.url))
+    return NextResponse.redirect(new URL("/", request.url));
   }
 
   return NextResponse.next();
 }
 
 export const config = {
-  matcher: [
-    "/((?!api|_next/static|_next/image|favicon.ico).*)",
-  ],
+  matcher: ["/((?!api|_next/static|_next/image|favicon.ico).*)"],
 };
