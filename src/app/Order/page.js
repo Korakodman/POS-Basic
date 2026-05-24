@@ -32,7 +32,7 @@ export default function Page() {
   const [selectedOrder, setSelectedOrder] = useState(null);
   const printRef = useRef(null);
 
-  const { data, loading, error } = useFetchData("http://localhost:3000/api/orders");
+  const { data, loading, error } = useFetchData("/api/orders");
   const orders = useMemo(() => {
     const orderList = data?.order || [];
 

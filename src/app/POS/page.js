@@ -23,7 +23,7 @@ export default function Page() {
     setIsOpen(true);
   }
 
-const { data, loading, error } = useFetchData("http://localhost:3000/api/products")
+const { data, loading, error } = useFetchData("/api/products")
 
   const [Cart,setCart] = useState([])
    

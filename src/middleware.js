@@ -1,7 +1,7 @@
 import { NextResponse } from "next/server";
 
-export function proxy(request) {
-  const token = request.cookies.get("token");
+export function middleware(request) {
+  const token = request.cookies.get("token")?.value;
   const pathname = request.nextUrl.pathname;
 
   const publicPaths = ["/login", "/register"];

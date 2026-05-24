@@ -34,7 +34,7 @@ export default function Page() {
   }
 
   const { data, loading, error } = useFetchData(
-    "http://localhost:3000/api/products",
+    "/api/products",
   );
   const productSource = [...(data || []), ...addedProducts];
   const products = productSource.filter((item) => {
@@ -53,7 +53,7 @@ export default function Page() {
   }
 
   async function handleForm(e) {
-    const res = await fetch("http://localhost:3000/api/products", {
+    const res = await fetch("/api/products", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ ...formdata }),

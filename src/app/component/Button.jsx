@@ -19,7 +19,7 @@ export default function ButtonUI({text,style,HandlePayment,total,setCart,Cart},)
 
     
   useEffect(()=>{
-    axios.get("http://localhost:3000/api/me")
+    axios.get("/api/me")
     .then(response=>{
     SetUser(response.data.user)
     })
@@ -55,7 +55,7 @@ async function handleAccept(params) {
   setIsOpen(true)
  return
  }else{
-   const res = await fetch("http://localhost:3000/api/orders", {
+   const res = await fetch("/api/orders", {
     method: "POST",
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify({userId:User.id,items:Cart,OptionPayment:"cash"}), //  อย่าลืมแก้ OptionPayment และ userID หลังจากทำระบบ user
