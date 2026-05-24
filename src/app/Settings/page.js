@@ -9,7 +9,7 @@ import SectionCard from "../component/settings/SectionCard";
 export default function Page() {
   const [user,Setuser] = useState(null)
  useEffect(()=>{
-  axios.get("http://localhost:3000/api/me")
+  axios.get("/api/me")
   .then(respone=>{
     Setuser(respone.data.user)
   }).catch(error=>{

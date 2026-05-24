@@ -50,7 +50,7 @@ const getTopProduct = (orders) => {
 };
 
 export default function Home() {
-  const { data, loading, error } = useFetchData("http://localhost:3000/api/orders");
+  const { data, loading, error } = useFetchData("/api/orders");
 
   const orders = useMemo(() => {
     const orderList = data?.order || [];

@@ -44,7 +44,7 @@ function NavbarUI({ user }) {
 
   async function LogoutHandle() {
     axios
-      .get("http://localhost:3000/api/Logout")
+      .get("/api/Logout")
       .then(function () {
         setTimeout(() => {
           route.refresh();
