@@ -7,6 +7,7 @@ import { Plus } from "@gravity-ui/icons";
 import { Button, Modal } from "@heroui/react";
 import useFetchData from "../hooks/useFetchData";
 import { PaginationBasic } from "../component/Pagination";
+import { useRouter } from "next/navigation";
 const createEmptyProductForm = () => ({
   name: "",
   price: 0,
@@ -24,7 +25,7 @@ export default function Page() {
   const [searchTerm, setSearchTerm] = useState("");
   const [categoryTerm, setCategoryTerm] = useState("");
   const [formdata, setformdata] = useState(createEmptyProductForm);
-
+  const Route = useRouter();
   function handleModal() {
     setformdata((prev) => ({
       ...prev,
@@ -53,6 +54,7 @@ export default function Page() {
   }
 
   async function handleForm(e) {
+    Route.refresh()
     const res = await fetch("/api/products", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
