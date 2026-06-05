@@ -114,10 +114,7 @@ export default function Page() {
         <header className="overflow-hidden rounded-[2rem] bg-gradient-to-br from-slate-950 via-slate-900 to-blue-950 p-6 text-white shadow-2xl shadow-slate-300/70">
           <div className="flex flex-col gap-6 lg:flex-row lg:items-center lg:justify-between">
             <div className="flex items-center gap-4">
-              <div className="rounded-3xl bg-white/10 p-4 ring-1 ring-white/15">
-                {/* eslint-disable-next-line @next/next/no-img-element */}
-                <img src="/Barcode.png" alt="Barcode scanner" className="h-16 w-24 object-contain" />
-              </div>
+            
               <div>
                 <p className="text-sm font-semibold uppercase tracking-[0.35em] text-blue-200">POS Counter</p>
                 <h1 className="mt-2 text-3xl font-black tracking-tight sm:text-4xl">ขายหน้าร้าน</h1>
